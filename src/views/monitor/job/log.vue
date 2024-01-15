@@ -1,19 +1,19 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="任务名称" prop="jobName">
+         <el-form-item label="ミッション名" prop="jobName">
             <el-input
                v-model="queryParams.jobName"
-               placeholder="请输入任务名称"
+               placeholder="ミッション名を入力してください"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="任务组名" prop="jobGroup">
+         <el-form-item label="タスクグループ名" prop="jobGroup">
             <el-select
                v-model="queryParams.jobGroup"
-               placeholder="请选择任务组名"
+               placeholder="请选择タスクグループ名"
                clearable
                style="width: 240px"
             >
@@ -25,10 +25,10 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="执行状态" prop="status">
+         <el-form-item label="実行ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="请选择执行状态"
+               placeholder="请选择実行ステータス"
                clearable
                style="width: 240px"
             >
@@ -40,19 +40,19 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="执行时间" style="width: 308px">
+         <el-form-item label="実行時間" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD"
                type="daterange"
                range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
+               start-placeholder="開始日"
+               end-placeholder="終了日"
             ></el-date-picker>
          </el-form-item>
          <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+            <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
+            <el-button icon="Refresh" @click="resetQuery">取り戻し</el-button>
          </el-form-item>
       </el-form>
 
@@ -65,7 +65,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['monitor:job:remove']"
-            >删除</el-button>
+            > 削除</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -74,7 +74,7 @@
                icon="Delete"
                @click="handleClean"
                v-hasPermi="['monitor:job:remove']"
-            >清空</el-button>
+            >空の</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -83,7 +83,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['monitor:job:export']"
-            >导出</el-button>
+            >輸出</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button 
@@ -91,35 +91,35 @@
                plain 
                icon="Close"
                @click="handleClose"
-            >关闭</el-button>
+            >閉鎖</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
       <el-table v-loading="loading" :data="jobLogList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="日志编号" width="80" align="center" prop="jobLogId" />
-         <el-table-column label="任务名称" align="center" prop="jobName" :show-overflow-tooltip="true" />
-         <el-table-column label="任务组名" align="center" prop="jobGroup" :show-overflow-tooltip="true">
+         <el-table-column label="ログ番号" width="80" align="center" prop="jobLogId" />
+         <el-table-column label="ミッション名" align="center" prop="jobName" :show-overflow-tooltip="true" />
+         <el-table-column label="タスクグループ名" align="center" prop="jobGroup" :show-overflow-tooltip="true">
             <template #default="scope">
                <dict-tag :options="sys_job_group" :value="scope.row.jobGroup" />
             </template>
          </el-table-column>
-         <el-table-column label="调用目标字符串" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
-         <el-table-column label="日志信息" align="center" prop="jobMessage" :show-overflow-tooltip="true" />
-         <el-table-column label="执行状态" align="center" prop="status">
+         <el-table-column label="ターゲット文字列を呼び出します" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
+         <el-table-column label="ログ情報" align="center" prop="jobMessage" :show-overflow-tooltip="true" />
+         <el-table-column label="実行ステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="执行时间" align="center" prop="createTime" width="180">
+         <el-table-column label="実行時間" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
-               <el-button link type="primary" icon="View" @click="handleView(scope.row)" v-hasPermi="['monitor:job:query']">详细</el-button>
+               <el-button link type="primary" icon="View" @click="handleView(scope.row)" v-hasPermi="['monitor:job:query']">詳細</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -132,38 +132,38 @@
          @pagination="getList"
       />
 
-      <!-- 调度日志详细 -->
-      <el-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
+      <!-- 调度日志詳細 -->
+      <el-dialog title="调度日志詳細" v-model="open" width="700px" append-to-body>
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="日志序号：">{{ form.jobLogId }}</el-form-item>
-                  <el-form-item label="任务名称：">{{ form.jobName }}</el-form-item>
+                  <el-form-item label="ログ番号番号：">{{ form.jobLogId }}</el-form-item>
+                  <el-form-item label="ミッション名：">{{ form.jobName }}</el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="任务分组：">{{ form.jobGroup }}</el-form-item>
-                  <el-form-item label="执行时间：">{{ form.createTime }}</el-form-item>
+                  <el-form-item label="タスクグループ：">{{ form.jobGroup }}</el-form-item>
+                  <el-form-item label="実行時間：">{{ form.createTime }}</el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="调用方法：">{{ form.invokeTarget }}</el-form-item>
+                  <el-form-item label="通話方法：">{{ form.invokeTarget }}</el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="日志信息：">{{ form.jobMessage }}</el-form-item>
+                  <el-form-item label="ログ情報：">{{ form.jobMessage }}</el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="执行状态：">
-                     <div v-if="form.status == 0">正常</div>
-                     <div v-else-if="form.status == 1">失败</div>
+                  <el-form-item label="実行ステータス：">
+                     <div v-if="form.status == 0">普通</div>
+                     <div v-else-if="form.status == 1">失敗</div>
                   </el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="异常信息：" v-if="form.status == 1">{{ form.exceptionInfo }}</el-form-item>
+                  <el-form-item label="異常な情報：" v-if="form.status == 1">{{ form.exceptionInfo }}</el-form-item>
                </el-col>
             </el-row>
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button @click="open = false">关 闭</el-button>
+               <el-button @click="open = false">近い 近い</el-button>
             </div>
          </template>
       </el-dialog>
@@ -200,7 +200,7 @@ const data = reactive({
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询调度日志列表 */
+/** クエリスケジューリングログリスト */
 function getList() {
   loading.value = true;
   listJobLog(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
@@ -209,51 +209,51 @@ function getList() {
     loading.value = false;
   });
 }
-// 返回按钮
+// 戻りボタン
 function handleClose() {
   const obj = { path: "/monitor/job" };
   proxy.$tab.closeOpenPage(obj);
 }
-/** 搜索按钮操作 */
+/** 検索ボタン動作します */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** 取り戻しボタン動作します */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
-// 多选框选中数据
+// マルチ選択ボックスはデータを選択します
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.jobLogId);
   multiple.value = !selection.length;
 }
-/** 详细按钮操作 */
+/** 詳細ボタン動作します */
 function handleView(row) {
   open.value = true;
   form.value = row;
 }
-/** 删除按钮操作 */
+/**  削除ボタン動作します */
 function handleDelete(row) {
-  proxy.$modal.confirm('是否确认删除调度日志编号为"' + ids.value + '"的数据项?').then(function () {
+  proxy.$modal.confirm('是否確認 削除调度ログ番号为"' + ids.value + '"データ項目?').then(function () {
     return delJobLog(ids.value);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("删除成功");
+    proxy.$modal.msgSuccess(" 削除成功");
   }).catch(() => {});
 }
-/** 清空按钮操作 */
+/** 空のボタン動作します */
 function handleClean() {
-  proxy.$modal.confirm("是否确认清空所有调度日志数据项?").then(function () {
+  proxy.$modal.confirm("是否確認空の所有调度日志数据项?").then(function () {
     return cleanJobLog();
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("清空成功");
+    proxy.$modal.msgSuccess("空の成功");
   }).catch(() => {});
 }
-/** 导出按钮操作 */
+/** 輸出ボタン動作します */
 function handleExport() {
   proxy.download("monitor/jobLog/export", {
     ...queryParams.value,

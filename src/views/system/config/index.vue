@@ -1,26 +1,26 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="参数名称" prop="configName">
+         <el-form-item label="パラメーター名" prop="configName">
             <el-input
                v-model="queryParams.configName"
-               placeholder="请输入参数名称"
+               placeholder="パラメーター名を入力してください"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="参数键名" prop="configKey">
+         <el-form-item label="パラメーターキー名" prop="configKey">
             <el-input
                v-model="queryParams.configKey"
-               placeholder="请输入参数键名"
+               placeholder="パラメーターキー名を入力してください"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="系统内置" prop="configType">
-            <el-select v-model="queryParams.configType" placeholder="系统内置" clearable>
+         <el-form-item label="ビルド-in" prop="configType">
+            <el-select v-model="queryParams.configType" placeholder="ビルド-in" clearable>
                <el-option
                   v-for="dict in sys_yes_no"
                   :key="dict.value"
@@ -29,19 +29,19 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="创建时间" style="width: 308px;">
+         <el-form-item label="作成時間" style="width: 308px;">
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD"
                type="daterange"
                range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
+               start-placeholder="開始日"
+               end-placeholder="終了日"
             ></el-date-picker>
          </el-form-item>
          <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+            <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
+            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
          </el-form-item>
       </el-form>
 
@@ -53,7 +53,7 @@
                icon="Plus"
                @click="handleAdd"
                v-hasPermi="['system:config:add']"
-            >新增</el-button>
+            >増加</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -63,7 +63,7 @@
                :disabled="single"
                @click="handleUpdate"
                v-hasPermi="['system:config:edit']"
-            >修改</el-button>
+            >改訂</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -73,7 +73,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['system:config:remove']"
-            >删除</el-button>
+            >取り除く去</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -82,7 +82,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:config:export']"
-            >导出</el-button>
+            >輸出</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -91,32 +91,32 @@
                icon="Refresh"
                @click="handleRefreshCache"
                v-hasPermi="['system:config:remove']"
-            >刷新缓存</el-button>
+            >キャッシュを更新します</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
       <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="参数主键" align="center" prop="configId" />
-         <el-table-column label="参数名称" align="center" prop="configName" :show-overflow-tooltip="true" />
-         <el-table-column label="参数键名" align="center" prop="configKey" :show-overflow-tooltip="true" />
-         <el-table-column label="参数键值" align="center" prop="configValue" :show-overflow-tooltip="true" />
-         <el-table-column label="系统内置" align="center" prop="configType">
+         <el-table-column label="パラメーターメインキー" align="center" prop="configId" />
+         <el-table-column label="パラメーター名" align="center" prop="configName" :show-overflow-tooltip="true" />
+         <el-table-column label="パラメーターキー名" align="center" prop="configKey" :show-overflow-tooltip="true" />
+         <el-table-column label="パラメーターキー値" align="center" prop="configValue" :show-overflow-tooltip="true" />
+         <el-table-column label="ビルド-in" align="center" prop="configType">
             <template #default="scope">
                <dict-tag :options="sys_yes_no" :value="scope.row.configType" />
             </template>
          </el-table-column>
-         <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="述べる" align="center" prop="remark" :show-overflow-tooltip="true" />
+         <el-table-column label="作成時間" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
+         <el-table-column label="動作します" align="center" width="150" class-name="small-padding fixed-width">
             <template #default="scope">
-               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:config:edit']" >修改</el-button>
-               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:config:remove']">删除</el-button>
+               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:config:edit']" >改訂</el-button>
+               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:config:remove']">取り除く去</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -129,19 +129,19 @@
          @pagination="getList"
       />
 
-      <!-- 添加或修改参数配置对话框 -->
+      <!-- 添加或改訂参数配置对话框 -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="configRef" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="参数名称" prop="configName">
-               <el-input v-model="form.configName" placeholder="请输入参数名称" />
+            <el-form-item label="パラメーター名" prop="configName">
+               <el-input v-model="form.configName" placeholder="パラメーター名を入力してください" />
             </el-form-item>
-            <el-form-item label="参数键名" prop="configKey">
-               <el-input v-model="form.configKey" placeholder="请输入参数键名" />
+            <el-form-item label="パラメーターキー名" prop="configKey">
+               <el-input v-model="form.configKey" placeholder="パラメーターキー名を入力してください" />
             </el-form-item>
-            <el-form-item label="参数键值" prop="configValue">
-               <el-input v-model="form.configValue" placeholder="请输入参数键值" />
+            <el-form-item label="パラメーターキー値" prop="configValue">
+               <el-input v-model="form.configValue" placeholder="パラメーターキー値を入力してください" />
             </el-form-item>
-            <el-form-item label="系统内置" prop="configType">
+            <el-form-item label="ビルド-in" prop="configType">
                <el-radio-group v-model="form.configType">
                   <el-radio
                      v-for="dict in sys_yes_no"
@@ -150,14 +150,14 @@
                   >{{ dict.label }}</el-radio>
                </el-radio-group>
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
-               <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+            <el-form-item label="述べる" prop="remark">
+               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"" />
             </el-form-item>
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">确 定</el-button>
-               <el-button @click="cancel">取 消</el-button>
+               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
+               <el-button @click="cancel">選ぶ 取り除く</el-button>
             </div>
          </template>
       </el-dialog>
@@ -191,15 +191,15 @@ const data = reactive({
     configType: undefined
   },
   rules: {
-    configName: [{ required: true, message: "参数名称不能为空", trigger: "blur" }],
-    configKey: [{ required: true, message: "参数键名不能为空", trigger: "blur" }],
-    configValue: [{ required: true, message: "参数键值不能为空", trigger: "blur" }]
+    configName: [{ required: true, message: "パラメーター名不能为空", trigger: "blur" }],
+    configKey: [{ required: true, message: "パラメーターキー名不能为空", trigger: "blur" }],
+    configValue: [{ required: true, message: "パラメーターキー値不能为空", trigger: "blur" }]
   }
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询参数列表 */
+/** クエリパラメーターリスト */
 function getList() {
   loading.value = true;
   listConfig(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
@@ -208,12 +208,12 @@ function getList() {
     loading.value = false;
   });
 }
-/** 取消按钮 */
+/** 選ぶ取り除くボタン */
 function cancel() {
   open.value = false;
   reset();
 }
-/** 表单重置 */
+/** 表单選ぶり戻し */
 function reset() {
   form.value = {
     configId: undefined,
@@ -225,52 +225,52 @@ function reset() {
   };
   proxy.resetForm("configRef");
 }
-/** 搜索按钮操作 */
+/** 検索ボタン動作します */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** 選ぶり戻しボタン動作します */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
-/** 多选框选中数据 */
+/** マルチ選択ボックスはデータを選択します */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.configId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 新增按钮操作 */
+/** 増加ボタン動作します */
 function handleAdd() {
   reset();
   open.value = true;
-  title.value = "添加参数";
+  title.value = "パラメーターを追加します";
 }
-/** 修改按钮操作 */
+/** 改訂ボタン動作します */
 function handleUpdate(row) {
   reset();
   const configId = row.configId || ids.value;
   getConfig(configId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "修改参数";
+    title.value = "改訂参数";
   });
 }
-/** 提交按钮 */
+/** [提出]ボタン */
 function submitForm() {
   proxy.$refs["configRef"].validate(valid => {
     if (valid) {
       if (form.value.configId != undefined) {
         updateConfig(form.value).then(response => {
-          proxy.$modal.msgSuccess("修改成功");
+          proxy.$modal.msgSuccess("改訂成功");
           open.value = false;
           getList();
         });
       } else {
         addConfig(form.value).then(response => {
-          proxy.$modal.msgSuccess("新增成功");
+          proxy.$modal.msgSuccess("増加成功");
           open.value = false;
           getList();
         });
@@ -278,26 +278,26 @@ function submitForm() {
     }
   });
 }
-/** 删除按钮操作 */
+/** 取り除く去ボタン動作します */
 function handleDelete(row) {
   const configIds = row.configId || ids.value;
-  proxy.$modal.confirm('是否确认删除参数编号为"' + configIds + '"的数据项？').then(function () {
+  proxy.$modal.confirm('是否確かに认取り除く去参数编号为"' + configIds + '"データ項目？').then(function () {
     return delConfig(configIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("删除成功");
+    proxy.$modal.msgSuccess("取り除く去成功");
   }).catch(() => {});
 }
-/** 导出按钮操作 */
+/** 輸出ボタン動作します */
 function handleExport() {
   proxy.download("system/config/export", {
     ...queryParams.value
   }, `config_${new Date().getTime()}.xlsx`);
 }
-/** 刷新缓存按钮操作 */
+/** キャッシュを更新しますボタン動作します */
 function handleRefreshCache() {
   refreshCache().then(() => {
-    proxy.$modal.msgSuccess("刷新缓存成功");
+    proxy.$modal.msgSuccess("キャッシュを更新します成功");
   });
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-tabs type="border-card">
-            <el-tab-pane label="秒" v-if="shouldHide('second')">
+            <el-tab-pane label="2番" v-if="shouldHide('second')">
                 <CrontabSecond
                     @update="updateCrontabValue"
                     :check="checkNumber"
@@ -10,7 +10,7 @@
                 />
             </el-tab-pane>
 
-            <el-tab-pane label="分钟" v-if="shouldHide('min')">
+            <el-tab-pane label="分" v-if="shouldHide('min')">
                 <CrontabMin
                     @update="updateCrontabValue"
                     :check="checkNumber"
@@ -19,7 +19,7 @@
                 />
             </el-tab-pane>
 
-            <el-tab-pane label="小时" v-if="shouldHide('hour')">
+            <el-tab-pane label="時間" v-if="shouldHide('hour')">
                 <CrontabHour
                     @update="updateCrontabValue"
                     :check="checkNumber"
@@ -46,7 +46,7 @@
                 />
             </el-tab-pane>
 
-            <el-tab-pane label="周" v-if="shouldHide('week')">
+            <el-tab-pane label="週" v-if="shouldHide('week')">
                 <CrontabWeek
                     @update="updateCrontabValue"
                     :check="checkNumber"
@@ -67,11 +67,11 @@
 
         <div class="popup-main">
             <div class="popup-result">
-                <p class="title">时间表达式</p>
+                <p class="title">時間表現</p>
                 <table>
                     <thead>
                         <th v-for="item of tabTitles" :key="item">{{item}}</th>
-                        <th>Cron 表达式</th>
+                        <th>Cron 表現</th>
                     </thead>
                     <tbody>
                         <td>
@@ -112,9 +112,9 @@
             <CrontabResult :ex="crontabValueString"></CrontabResult>
 
             <div class="pop_btn">
-                <el-button type="primary" @click="submitFill">确定</el-button>
-                <el-button type="warning" @click="clearCron">重置</el-button>
-                <el-button @click="hidePopup">取消</el-button>
+                <el-button type="primary" @click="submitFill">もちろん</el-button>
+                <el-button type="warning" @click="clearCron">取り戻し</el-button>
+                <el-button @click="hidePopup">キャンセル</el-button>
             </div>
         </div>
     </div>
@@ -141,7 +141,7 @@ const props = defineProps({
         default: ""
     }
 })
-const tabTitles = ref(["秒", "分钟", "小时", "日", "月", "周", "年"])
+const tabTitles = ref(["2番", "分", "時間", "日", "月", "週", "年"])
 const tabActive = ref(0)
 const hideComponent = ref([])
 const expression = ref('')
@@ -174,11 +174,11 @@ function shouldHide(key) {
     return !(hideComponent.value && hideComponent.value.includes(key))
 }
 function resolveExp() {
-    // 反解析 表达式
+    // 抗分析 表現
     if (expression.value) {
         const arr = expression.value.split(/\s+/)
         if (arr.length >= 6) {
-            //6 位以上是合法表达式
+            //6 位以上是合法表現
             let obj = {
                 second: arr[0],
                 min: arr[1],
@@ -193,21 +193,21 @@ function resolveExp() {
             }
         }
     } else {
-        // 没有传入的表达式 则还原
+        // 没有传入的表現 復元する
         clearCron()
     }
 }
-// tab切换值
+// tab値の切り替え
 function tabCheck(index) {
     tabActive.value = index
 }
-// 由子组件触发，更改表达式组成的字段值
+// サブコンポーネントによってトリガーされます，更改表現组成的字段值
 function updateCrontabValue(name, value, from) {
     crontabValueObj.value[name] = value
 }
-// 表单选项的子组件校验数字格式（通过-props传递）
+// 番号形式を確認するフォームオプションのサブコンポーネント（合格-props移行）
 function checkNumber(value, minLimit, maxLimit) {
-    // 检查必须为整数
+    // 検査は整数でなければなりません
     value = Math.floor(value)
     if (value < minLimit) {
         value = minLimit
@@ -216,17 +216,17 @@ function checkNumber(value, minLimit, maxLimit) {
     }
     return value
 }
-// 隐藏弹窗
+// 隠されたポップアップ
 function hidePopup() {
     emit("hide")
 }
-// 填充表达式
+// 填充表現
 function submitFill() {
     emit("fill", crontabValueString.value)
     hidePopup()
 }
 function clearCron() {
-    // 还原选择项
+    // 選択項目を復元します
     crontabValueObj.value = {
         second: "*",
         min: "*",

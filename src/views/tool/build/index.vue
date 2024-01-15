@@ -1,3 +1,3 @@
 <template>
-   <div> 表单构建 <svg-icon icon-class="build" /> </div>
+   <div> フォーム構造 <svg-icon icon-class="build" /> </div>
 </template>

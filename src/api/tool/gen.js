@@ -25,7 +25,7 @@ export function getGenTable(tableId) {
   })
 }
 
-// 修改代码生成信息
+// 修改コード生成信息
 export function updateGenTable(data) {
   return request({
     url: '/tool/gen',
@@ -43,7 +43,7 @@ export function importTable(data) {
   })
 }
 
-// 预览生成代码
+// 预览生成コード
 export function previewTable(tableId) {
   return request({
     url: '/tool/gen/preview/' + tableId,
@@ -59,7 +59,7 @@ export function delTable(tableId) {
   })
 }
 
-// 生成代码（自定义路径）
+// 生成コード（自定义路径）
 export function genCode(tableName) {
   return request({
     url: '/tool/gen/genCode/' + tableName,

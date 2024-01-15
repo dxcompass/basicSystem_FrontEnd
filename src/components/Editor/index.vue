@@ -34,37 +34,37 @@ import { getToken } from "@/utils/auth";
 const { proxy } = getCurrentInstance();
 
 const quillEditorRef = ref();
-const uploadUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // 上传的图片服务器地址
+const uploadUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // アップロードされた画像サーバーアドレス
 const headers = ref({
   Authorization: "Bearer " + getToken()
 });
 
 const props = defineProps({
-  /* 编辑器的内容 */
+  /* 編集者のコンテンツ */
   modelValue: {
     type: String,
   },
-  /* 高度 */
+  /* 高い */
   height: {
     type: Number,
     default: null,
   },
-  /* 最小高度 */
+  /* 最小高い */
   minHeight: {
     type: Number,
     default: null,
   },
-  /* 只读 */
+  /* 読むだけです */
   readOnly: {
     type: Boolean,
     default: false,
   },
-  /* 上传文件大小限制(MB) */
+  /* ファイルサイズの制限をアップロードします(MB) */
   fileSize: {
     type: Number,
     default: 5,
   },
-  /* 类型（base64格式、url格式） */
+  /* タイプ（base64フォーマット、urlフォーマット） */
   type: {
     type: String,
     default: "url",
@@ -76,21 +76,21 @@ const options = ref({
   bounds: document.body,
   debug: "warn",
   modules: {
-    // 工具栏配置
+    // ツールバー構成
     toolbar: [
-      ["bold", "italic", "underline", "strike"],      // 加粗 斜体 下划线 删除线
-      ["blockquote", "code-block"],                   // 引用  代码块
-      [{ list: "ordered" }, { list: "bullet" }],      // 有序、无序列表
-      [{ indent: "-1" }, { indent: "+1" }],           // 缩进
-      [{ size: ["small", false, "large", "huge"] }],  // 字体大小
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],        // 标题
-      [{ color: [] }, { background: [] }],            // 字体颜色、字体背景颜色
-      [{ align: [] }],                                // 对齐方式
-      ["clean"],                                      // 清除文本格式
-      ["link", "image", "video"]                      // 链接、图片、视频
+      ["bold", "italic", "underline", "strike"],      // 大胆な 斜めの体 下線 行を削除します
+      ["blockquote", "code-block"],                   // 引用  コードブロック
+      [{ list: "ordered" }, { list: "bullet" }],      // 秩序ある、不利益
+      [{ indent: "-1" }, { indent: "+1" }],           // インデント
+      [{ size: ["small", false, "large", "huge"] }],  // フォントサイズ
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],        // タイトル
+      [{ color: [] }, { background: [] }],            // フォントカラー、フォントの背景色
+      [{ align: [] }],                                // アライメント
+      ["clean"],                                      // 清除文章フォーマット
+      ["link", "image", "video"]                      // リンク、写真、ビデオ
     ],
   },
-  placeholder: "请输入内容",
+  placeholder: "コンテンツを入力してください"",
   readOnly: props.readOnly
 });
 
@@ -112,7 +112,7 @@ watch(() => props.modelValue, (v) => {
   }
 }, { immediate: true });
 
-// 如果设置了上传地址则自定义图片上传事件
+// 如果设置了上传地址则自定义写真上传事件
 onMounted(() => {
   if (props.type == 'url') {
     let quill = quillEditorRef.value.getQuill();
@@ -127,46 +127,46 @@ onMounted(() => {
   }
 });
 
-// 上传前校检格式和大小
+// 上传前校检フォーマット和大小
 function handleBeforeUpload(file) {
   const type = ["image/jpeg", "image/jpg", "image/png", "image/svg"];
   const isJPG = type.includes(file.type);
-  //检验文件格式
+  //检验文件フォーマット
   if (!isJPG) {
-    proxy.$modal.msgError(`图片格式错误!`);
+    proxy.$modal.msgError(`写真フォーマット错误!`);
     return false;
   }
-  // 校检文件大小
+  // 学校検査文書のサイズ
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+      proxy.$modal.msgError(`アップロードファイルのサイズを超えることはできません ${props.fileSize} MB!`);
       return false;
     }
   }
   return true;
 }
 
-// 上传成功处理
+// 正常にアップロードします
 function handleUploadSuccess(res, file) {
-  // 如果上传成功
+  // アップロードが成功した場合
   if (res.code == 200) {
-    // 获取富文本实例
+    // 豊富なテキストの例を取得します
     let quill = toRaw(quillEditorRef.value).getQuill();
-    // 获取光标位置
+    // カーソル位置を取得します
     let length = quill.selection.savedRange.index;
-    // 插入图片，res.url为服务器返回的图片链接地址
+    // 插入写真，res.url为服务器返回的写真リンク地址
     quill.insertEmbed(length, "image", import.meta.env.VITE_APP_BASE_API + res.fileName);
-    // 调整光标到最后
+    // カーソルを最後まで調整します
     quill.setSelection(length + 1);
   } else {
-    proxy.$modal.msgError("图片插入失败");
+    proxy.$modal.msgError("写真插入失败");
   }
 }
 
-// 上传失败处理
+// 失敗した取り扱いをアップロードします
 function handleUploadError() {
-  proxy.$modal.msgError("图片插入失败");
+  proxy.$modal.msgError("写真插入失败");
 }
 </script>
 
@@ -182,7 +182,7 @@ function handleUploadError() {
   display: none;
 }
 .ql-snow .ql-tooltip[data-mode="link"]::before {
-  content: "请输入链接地址:";
+  content: "リンク地址:を入力してください";
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
   border-right: 0px;
@@ -190,7 +190,7 @@ function handleUploadError() {
   padding-right: 0px;
 }
 .ql-snow .ql-tooltip[data-mode="video"]::before {
-  content: "请输入视频地址:";
+  content: "ビデオ地址:を入力してください";
 }
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item::before {
@@ -210,42 +210,42 @@ function handleUploadError() {
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-  content: "文本";
+  content: "文章";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
-  content: "标题1";
+  content: "タイトル1";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
-  content: "标题2";
+  content: "タイトル2";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
-  content: "标题3";
+  content: "タイトル3";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-  content: "标题4";
+  content: "タイトル4";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-  content: "标题5";
+  content: "タイトル5";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-  content: "标题6";
+  content: "タイトル6";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item::before {
-  content: "标准字体";
+  content: "標準フォント";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
-  content: "衬线字体";
+  content: "steril";
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
-  content: "等宽字体";
+  content: "同等";
 }
 </style>

@@ -51,7 +51,7 @@ export default {
   notifyWarning(content) {
     ElNotification.warning(content)
   },
-  // 确认窗体
+  // 確認窗体
   confirm(content) {
     return ElMessageBox.confirm(content, "系统提示", {
       confirmButtonText: '确定',

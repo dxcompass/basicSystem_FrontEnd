@@ -14,9 +14,9 @@
       </el-menu-item>
     </template>
 
-    <!-- 顶部菜单超出数量折叠 -->
+    <!-- トップメニューは数量の折りたたみを超えています -->
     <el-sub-menu :style="{'--theme': theme}" index="more" v-if="topMenus.length > visibleNumber">
-      <template #title>更多菜单</template>
+      <template #title>その他のメニュー</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item
           :index="item.path"
@@ -39,11 +39,11 @@ import useAppStore from '@/store/modules/app'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
 
-// 顶部栏初始数
+// 上部列の初期番号
 const visibleNumber = ref(null);
-// 当前激活菜单的 index
+// 現在のアクティベーションメニュー index
 const currentIndex = ref(null);
-// 隐藏侧边栏路由
+// 側面の納屋の側面を隠します
 const hideList = ['/index', '/user/profile'];
 
 const appStore = useAppStore()
@@ -52,17 +52,17 @@ const permissionStore = usePermissionStore()
 const route = useRoute();
 const router = useRouter();
 
-// 主题颜色
+// テーマの色
 const theme = computed(() => settingsStore.theme);
-// 所有的路由信息
+// すべてのルート情報
 const routers = computed(() => permissionStore.topbarRouters);
 
-// 顶部显示菜单
+// トップディスプレイメニュー
 const topMenus = computed(() => {
   let topMenus = [];
   routers.value.map((menu) => {
     if (menu.hidden !== true) {
-      // 兼容顶部栏一级菜单内部跳转
+      // 上部の列の最初のメニューと互換性があります
       if (menu.path === "/") {
           topMenus.push(menu.children[0]);
       } else {
@@ -73,7 +73,7 @@ const topMenus = computed(() => {
   return topMenus;
 })
 
-// 设置子路由
+// 子ルートを設定します
 const childrenMenus = computed(() => {
   let childrenMenus = [];
   routers.value.map((router) => {
@@ -94,7 +94,7 @@ const childrenMenus = computed(() => {
   return constantRoutes.concat(childrenMenus);
 })
 
-// 默认激活的菜单
+// 扱いにくいメニュー
 const activeMenu = computed(() => {
   const path = route.path;
   let activePath = path;
@@ -121,10 +121,10 @@ function handleSelect(key, keyPath) {
   currentIndex.value = key;
   const route = routers.value.find(item => item.path === key);
   if (isHttp(key)) {
-    // http(s):// 路径新窗口打开
+    // http(s):// 新しいウィンドウが開きます
     window.open(key, "_blank");
   } else if (!route || !route.children) {
-    // 没有子路由路径内部打开
+    // サブパスパスなしで開きます
     const routeMenu = childrenMenus.value.find(item => item.path === key);
     if (routeMenu && routeMenu.query) {
       let query = JSON.parse(routeMenu.query);
@@ -134,7 +134,7 @@ function handleSelect(key, keyPath) {
     }
     appStore.toggleSideBarHide(true);
   } else {
-    // 显示左侧联动菜单
+    // 左リンクメニューを表示します
     activeRoutes(key);
     appStore.toggleSideBarHide(false);
   }
@@ -194,12 +194,12 @@ onMounted(() => {
   margin: 0 10px !important;
 }
 
-/* 背景色隐藏 */
+/* 背景色が隠されています */
 .topmenu-container.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .topmenu-container.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .topmenu-container.el-menu--horizontal>.el-submenu .el-submenu__title:hover {
   background-color: #ffffff !important;
 }
 
-/* 图标右间距 */
+/* アイコン右距離 */
 .topmenu-container .svg-icon {
   margin-right: 4px;
 }

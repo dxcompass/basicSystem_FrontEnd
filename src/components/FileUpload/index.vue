@@ -14,24 +14,24 @@
       class="upload-file-uploader"
       ref="fileUpload"
     >
-      <!-- 上传按钮 -->
-      <el-button type="primary">选取文件</el-button>
+      <!-- アップロードボタン -->
+      <el-button type="primary">ファイルを選ぶ</el-button>
     </el-upload>
-    <!-- 上传提示 -->
+    <!-- プロンプトをアップロードします -->
     <div class="el-upload__tip" v-if="showTip">
-      请上传
-      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
-      的文件
+      アップロードしてください
+      <template v-if="fileSize"> サイズは超えません <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
+      <template v-if="fileType"> フォーマット <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      書類
     </div>
-    <!-- 文件列表 -->
+    <!-- ファイルリスト -->
     <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
       <li :key="file.uid" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${baseUrl}${file.url}`" :underline="false" target="_blank">
           <span class="el-icon-document"> {{ getFileName(file.name) }} </span>
         </el-link>
         <div class="ele-upload-list__item-content-action">
-          <el-link :underline="false" @click="handleDelete(index)" type="danger">删除</el-link>
+          <el-link :underline="false" @click="handleDelete(index)" type="danger"> 削除</el-link>
         </div>
       </li>
     </transition-group>
@@ -43,22 +43,22 @@ import { getToken } from "@/utils/auth";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
-  // 数量限制
+  // 定量的制限
   limit: {
     type: Number,
     default: 5,
   },
-  // 大小限制(MB)
+  // サイズ制限(MB)
   fileSize: {
     type: Number,
     default: 5,
   },
-  // 文件类型, 例如['png', 'jpg', 'jpeg']
+  // ファイルの種類, 例えば['png', 'jpg', 'jpeg']
   fileType: {
     type: Array,
     default: () => ["doc", "xls", "ppt", "txt", "pdf"],
   },
-  // 是否显示提示
+  // プロンプトを表示するかどうか
   isShowTip: {
     type: Boolean,
     default: true
@@ -70,7 +70,7 @@ const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // 上传文件服务器地址
+const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // ファイルサーバーアドレスをアップロードします
 const headers = ref({ Authorization: "Bearer " + getToken() });
 const fileList = ref([]);
 const showTip = computed(
@@ -80,9 +80,9 @@ const showTip = computed(
 watch(() => props.modelValue, val => {
   if (val) {
     let temp = 1;
-    // 首先将值转为数组
+    // 最初に値を配列に変えます
     const list = Array.isArray(val) ? val : props.modelValue.split(',');
-    // 然后将数组转为对象数组
+    // 次に、配列をオブジェクト配列に変えます
     fileList.value = list.map(item => {
       if (typeof item === "string") {
         item = { name: item, url: item };
@@ -96,42 +96,42 @@ watch(() => props.modelValue, val => {
   }
 },{ deep: true, immediate: true });
 
-// 上传前校检格式和大小
+// 以前の学校の検査の形式とサイズをアップロードする
 function handleBeforeUpload(file) {
-  // 校检文件类型
+  // 校检ファイルの種類
   if (props.fileType.length) {
     const fileName = file.name.split('.');
     const fileExt = fileName[fileName.length - 1];
     const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
     if (!isTypeOk) {
-      proxy.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join("/")}格式文件!`);
+      proxy.$modal.msgError(`ファイル形式が正しくありません, アップロードしてください${props.fileType.join("/")}フォーマットファイル!`);
       return false;
     }
   }
-  // 校检文件大小
+  // 学校検査文書のサイズ
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+      proxy.$modal.msgError(`アップロードファイルのサイズを超えることはできません ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading("正在上传文件，请稍候...");
+  proxy.$modal.loading("ファイルをアップロードします，お待ちください...");
   number.value++;
   return true;
 }
 
-// 文件个数超出
+// ファイルの数が超えています
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  proxy.$modal.msgError(`アップロードファイルの数はそれ以上を超えることはできません ${props.limit} 個々!`);
 }
 
-// 上传失败
+// アップロードに失敗しました
 function handleUploadError(err) {
-  proxy.$modal.msgError("上传文件失败");
+  proxy.$modal.msgError("ファイルの障害をアップロードします");
 }
 
-// 上传成功回调
+// 正常にアップロードします
 function handleUploadSuccess(res, file) {
   if (res.code === 200) {
     uploadList.value.push({ name: res.fileName, url: res.fileName });
@@ -145,13 +145,13 @@ function handleUploadSuccess(res, file) {
   }
 }
 
-// 删除文件
+//  削除文件
 function handleDelete(index) {
   fileList.value.splice(index, 1);
   emit("update:modelValue", listToString(fileList.value));
 }
 
-// 上传结束处理
+// エンディングをアップロードします
 function uploadedSuccessfully() {
   if (number.value > 0 && uploadList.value.length === number.value) {
     fileList.value = fileList.value.filter(f => f.url !== undefined).concat(uploadList.value);
@@ -162,9 +162,9 @@ function uploadedSuccessfully() {
   }
 }
 
-// 获取文件名称
+// ファイル名を取得します
 function getFileName(name) {
-  // 如果是url那么取最后的名字 如果不是直接返回
+  // の場合url次に、姓を取ります 直接戻っていない場合
   if (name.lastIndexOf("/") > -1) {
     return name.slice(name.lastIndexOf("/") + 1);
   } else {
@@ -172,7 +172,7 @@ function getFileName(name) {
   }
 }
 
-// 对象转成指定字符串分隔
+// オブジェクトは、指定された文字列分離に変換されます
 function listToString(list, separator) {
   let strs = "";
   separator = separator || ",";

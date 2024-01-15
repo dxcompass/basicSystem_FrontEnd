@@ -25,18 +25,18 @@
 </template>
 
 <script setup>
-// 记录未匹配的项
+// 不健康なアイテムを記録します
 const unmatchArray = ref([]);
 
 const props = defineProps({
-  // 数据
+  // データ
   options: {
     type: Array,
     default: null,
   },
-  // 当前的值
+  // 現在の価値
   value: [Number, String, Array],
-  // 当未找到匹配的数据时，显示value
+  // 当未找到匹配的データ时，見せるvalue
   showValue: {
     type: Boolean,
     default: true,
@@ -54,17 +54,17 @@ const values = computed(() => {
 
 const unmatch = computed(() => {
   unmatchArray.value = [];
-  // 没有value不显示
+  // いいえvalue不見せる
   if (props.value === null || typeof props.value === 'undefined' || props.value === '' || props.options.length === 0) return false
-  // 传入值为数组
-  let unmatch = false // 添加一个标志来判断是否有未匹配项
+  // エントリ値は配列です
+  let unmatch = false // ロゴを追加して、不満があるかどうかを判断する
   values.value.forEach(item => {
     if (!props.options.some(v => v.value === item)) {
       unmatchArray.value.push(item)
-      unmatch = true // 如果有未匹配项，将标志设置为true
+      unmatch = true // マッチングがない場合，フラグをに設定しますtrue
     }
   })
-  return unmatch // 返回标志的值
+  return unmatch // ロゴの価値に戻ります
 });
 
 function handleArray(array) {

@@ -1,6 +1,6 @@
 <template>
   <div class="user-info-head" @click="editCropper()">
-    <img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
+    <img :src="options.img" title="クリックしてアバターをアップロードします" class="img-circle img-lg" />
     <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
       <el-row>
         <el-col :xs="24" :md="12" :style="{ height: '350px' }">
@@ -33,7 +33,7 @@
             :before-upload="beforeUpload"
           >
             <el-button>
-              选择
+              選ぶ
               <el-icon class="el-icon--right"><Upload /></el-icon>
             </el-button>
           </el-upload>
@@ -51,7 +51,7 @@
           <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
         </el-col>
         <el-col :lg="{ span: 2, offset: 6 }" :md="2">
-          <el-button type="primary" @click="uploadImg()">提 交</el-button>
+          <el-button type="primary" @click="uploadImg()">運ぶ 支払う</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -69,47 +69,47 @@ const { proxy } = getCurrentInstance();
 
 const open = ref(false);
 const visible = ref(false);
-const title = ref("修改头像");
+const title = ref("アバターを変更します");
 
-//图片裁剪数据
+//画像切断データ
 const options = reactive({
-  img: userStore.avatar,     // 裁剪图片的地址
-  autoCrop: true,            // 是否默认生成截图框
-  autoCropWidth: 200,        // 默认生成截图框宽度
-  autoCropHeight: 200,       // 默认生成截图框高度
-  fixedBox: true,            // 固定截图框大小 不允许改变
-  outputType: "png",         // 默认生成截图为PNG格式
-  filename: 'avatar',        // 文件名称
-  previews: {}               //预览数据
+  img: userStore.avatar,     // 写真のアドレスをカットします
+  autoCrop: true,            // デフォルトでスクリーンショットボックスを生成するかどうか
+  autoCropWidth: 200,        // スクリーンショットボックスの幅デフォルト
+  autoCropHeight: 200,       // デフォルトでは、スクリーンショットの高さを生成します
+  fixedBox: true,            // スクリーンショットボックスのサイズを修正しました 変更が許可されていません
+  outputType: "png",         // デフォルトのスクリーンショットはですPNGフォーマット
+  filename: 'avatar',        // ファイル名
+  previews: {}               //プレビューデータ
 });
 
-/** 编辑头像 */
+/** アバターを編集します */
 function editCropper() {
   open.value = true;
 }
-/** 打开弹出层结束时的回调 */
+/** ポップアップレイヤーの終わりにコールバックを開きます */
 function modalOpened() {
   visible.value = true;
 }
-/** 覆盖默认上传行为 */
+/** デフォルトのアップロード動作をカバーします */
 function requestUpload() {}
-/** 向左旋转 */
+/** 左に回転します */
 function rotateLeft() {
   proxy.$refs.cropper.rotateLeft();
 }
-/** 向右旋转 */
+/** 右に回転します */
 function rotateRight() {
   proxy.$refs.cropper.rotateRight();
 }
-/** 图片缩放 */
+/** 画像ズーム */
 function changeScale(num) {
   num = num || 1;
   proxy.$refs.cropper.changeScale(num);
 }
-/** 上传预处理 */
+/** 事前処理をアップロードします */
 function beforeUpload(file) {
   if (file.type.indexOf("image/") == -1) {
-    proxy.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+    proxy.$modal.msgError("文件フォーマット错误，画像タイプをアップロードしてください,のように：JPG，PNGファイルファイル。");
   } else {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -119,7 +119,7 @@ function beforeUpload(file) {
     };
   }
 }
-/** 上传图片 */
+/** 画像をアップロードします */
 function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
     let formData = new FormData();
@@ -128,16 +128,16 @@ function uploadImg() {
       open.value = false;
       options.img = import.meta.env.VITE_APP_BASE_API + response.imgUrl;
       userStore.avatar = options.img;
-      proxy.$modal.msgSuccess("修改成功");
+      proxy.$modal.msgSuccess("正常に変更されました");
       visible.value = false;
     });
   });
 }
-/** 实时预览 */
+/** REAL -TIMEプレビュー */
 function realTime(data) {
   options.previews = data;
 }
-/** 关闭窗口 */
+/** 窓を閉めて */
 function closeDialog() {
   options.img = userStore.avatar;
   options.visible = false;

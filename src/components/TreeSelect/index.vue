@@ -33,35 +33,35 @@
 const { proxy } = getCurrentInstance();
 
 const props = defineProps({
-  /* 配置项 */
+  /* 構成アイテム */
   objMap: {
     type: Object,
     default: () => {
       return {
-        value: 'id', // ID字段名
-        label: 'label', // 显示名称
-        children: 'children' // 子级字段名
+        value: 'id', // IDフィールド名
+        label: 'label', // 表示名
+        children: 'children' // 子级フィールド名
       }
     }
   },
-  /* 自动收起 */
+  /* 自動的に片付けます */
   accordion: {
     type: Boolean,
     default: () => {
       return false
     }
   },
-  /**当前双向数据绑定的值 */
+  /**現在の2回のデータバインディング値 */
   value: {
     type: [String, Number],
     default: ''
   },
-  /**当前的数据 */
+  /**現在のデータ */
   options: {
     type: Array,
     default: () => []
   },
-  /**输入框内部的文字 */
+  /**ボックス内のテキストを入力します */
   placeholder: {
     type: String,
     default: ''
@@ -86,8 +86,8 @@ function initHandle() {
       const node = proxy.$refs.selectTree.getNode(selectedValue)
       if (node) {
         valueTitle.value = node.data[props.objMap.label]
-        proxy.$refs.selectTree.setCurrentKey(selectedValue) // 设置默认选中
-        defaultExpandedKey.value = [selectedValue] // 设置默认展开
+        proxy.$refs.selectTree.setCurrentKey(selectedValue) // デフォルトの選択を設定します
+        defaultExpandedKey.value = [selectedValue] // デフォルトの拡張を設定します
       }
     } else {
       clearHandle()

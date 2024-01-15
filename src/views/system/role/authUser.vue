@@ -2,27 +2,27 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" v-show="showSearch" :inline="true">
-         <el-form-item label="用户名称" prop="userName">
+         <el-form-item label="ユーザー名" prop="userName">
             <el-input
                v-model="queryParams.userName"
-               placeholder="请输入用户名称"
+               placeholder="ユーザー名を入力してください"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="手机号码" prop="phonenumber">
+         <el-form-item label="電話番号" prop="phonenumber">
             <el-input
                v-model="queryParams.phonenumber"
-               placeholder="请输入手机号码"
+               placeholder="電話番号を入力してください"
                clearable
                style="width: 240px"
                @keyup.enter="handleQuery"
             />
          </el-form-item>
          <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+            <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
+            <el-button icon="Refresh" @click="resetQuery">取り戻し</el-button>
          </el-form-item>
       </el-form>
 
@@ -34,7 +34,7 @@
                icon="Plus"
                @click="openSelectUser"
                v-hasPermi="['system:role:add']"
-            >添加用户</el-button>
+            >ユーザーを追加する</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -44,7 +44,7 @@
                :disabled="multiple"
                @click="cancelAuthUserAll"
                v-hasPermi="['system:role:remove']"
-            >批量取消授权</el-button>
+            >バッチキャンセル許可</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button 
@@ -52,30 +52,30 @@
                plain 
                icon="Close"
                @click="handleClose"
-            >关闭</el-button>
+            >閉鎖</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
       <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
-         <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
-         <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
-         <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
-         <el-table-column label="状态" align="center" prop="status">
+         <el-table-column label="ユーザー名" prop="userName" :show-overflow-tooltip="true" />
+         <el-table-column label="ユーザーのニックネーム" prop="nickName" :show-overflow-tooltip="true" />
+         <el-table-column label="郵便" prop="email" :show-overflow-tooltip="true" />
+         <el-table-column label="携帯電話" prop="phonenumber" :show-overflow-tooltip="true" />
+         <el-table-column label="州" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="作成時間" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
-               <el-button link type="primary" icon="CircleClose" @click="cancelAuthUser(scope.row)" v-hasPermi="['system:role:remove']">取消授权</el-button>
+               <el-button link type="primary" icon="CircleClose" @click="cancelAuthUser(scope.row)" v-hasPermi="['system:role:remove']">承認をキャンセルします</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -114,7 +114,7 @@ const queryParams = reactive({
   phonenumber: undefined,
 });
 
-/** 查询授权用户列表 */
+/** 認定ユーザーのクエリリスト */
 function getList() {
   loading.value = true;
   allocatedUserList(queryParams).then(response => {
@@ -123,48 +123,48 @@ function getList() {
     loading.value = false;
   });
 }
-// 返回按钮
+// 戻りボタン
 function handleClose() {
   const obj = { path: "/system/role" };
   proxy.$tab.closeOpenPage(obj);
 }
-/** 搜索按钮操作 */
+/** 検索ボタン動作します */
 function handleQuery() {
   queryParams.pageNum = 1;
   getList();
 }
-/** 重置按钮操作 */
+/** 取り戻しボタン動作します */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
 }
-// 多选框选中数据
+// マルチ選択ボックスはデータを選択します
 function handleSelectionChange(selection) {
   userIds.value = selection.map(item => item.userId);
   multiple.value = !selection.length;
 }
-/** 打开授权用户表弹窗 */
+/** 承認されたユーザーテーブルポップアップウィンドウを開きます */
 function openSelectUser() {
   proxy.$refs["selectRef"].show();
 }
-/** 取消授权按钮操作 */
+/** 承認をキャンセルしますボタン動作します */
 function cancelAuthUser(row) {
-  proxy.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function () {
+  proxy.$modal.confirm('ユーザーをキャンセルすることを確認してください"' + row.userName + '"キャラクターですか？？').then(function () {
     return authUserCancel({ userId: row.userId, roleId: queryParams.roleId });
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取消授权成功");
+    proxy.$modal.msgSuccess("承認をキャンセルします成功");
   }).catch(() => {});
 }
-/** 批量取消授权按钮操作 */
+/** バッチキャンセル許可ボタン動作します */
 function cancelAuthUserAll(row) {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");
-  proxy.$modal.confirm("是否取消选中用户授权数据项?").then(function () {
+  proxy.$modal.confirm("選択したユーザー認定データ項目をキャンセルするかどうか?").then(function () {
     return authUserCancelAll({ roleId: roleId, userIds: uIds });
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取消授权成功");
+    proxy.$modal.msgSuccess("承認をキャンセルします成功");
   }).catch(() => {});
 }
 

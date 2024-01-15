@@ -19,21 +19,21 @@
     >
       <el-icon class="avatar-uploader-icon"><plus /></el-icon>
     </el-upload>
-    <!-- 上传提示 -->
+    <!-- プロンプトをアップロードします -->
     <div class="el-upload__tip" v-if="showTip">
-      请上传
+      アップロードしてください
       <template v-if="fileSize">
-        大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
+        サイズは超えません <b style="color: #f56c6c">{{ fileSize }}MB</b>
       </template>
       <template v-if="fileType">
-        格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
+        フォーマット <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
       </template>
-      的文件
+      書類
     </div>
 
     <el-dialog
       v-model="dialogVisible"
-      title="预览"
+      title="プレビュー"
       width="800px"
       append-to-body
     >
@@ -50,22 +50,22 @@ import { getToken } from "@/utils/auth";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
-  // 图片数量限制
+  // 限られた画像量
   limit: {
     type: Number,
     default: 5,
   },
-  // 大小限制(MB)
+  // サイズ制限(MB)
   fileSize: {
     type: Number,
     default: 5,
   },
-  // 文件类型, 例如['png', 'jpg', 'jpeg']
+  // ファイルの種類, 例えば['png', 'jpg', 'jpeg']
   fileType: {
     type: Array,
     default: () => ["png", "jpg", "jpeg"],
   },
-  // 是否显示提示
+  // プロンプトを表示するかどうか
   isShowTip: {
     type: Boolean,
     default: true
@@ -79,7 +79,7 @@ const uploadList = ref([]);
 const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadImgUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // 上传的图片服务器地址
+const uploadImgUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // アップロードされた画像サーバーアドレス
 const headers = ref({ Authorization: "Bearer " + getToken() });
 const fileList = ref([]);
 const showTip = computed(
@@ -88,9 +88,9 @@ const showTip = computed(
 
 watch(() => props.modelValue, val => {
   if (val) {
-    // 首先将值转为数组
+    // 最初に値を配列に変えます
     const list = Array.isArray(val) ? val : props.modelValue.split(",");
-    // 然后将数组转为对象数组
+    // 次に、配列をオブジェクト配列に変えます
     fileList.value = list.map(item => {
       if (typeof item === "string") {
         if (item.indexOf(baseUrl) === -1) {
@@ -107,7 +107,7 @@ watch(() => props.modelValue, val => {
   }
 },{ deep: true, immediate: true });
 
-// 上传前loading加载
+// アップロードする前loading負荷
 function handleBeforeUpload(file) {
   let isImg = false;
   if (props.fileType.length) {
@@ -125,27 +125,27 @@ function handleBeforeUpload(file) {
   }
   if (!isImg) {
     proxy.$modal.msgError(
-      `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
+      `ファイル形式が正しくありません, アップロードしてください${props.fileType.join("/")}画像形式ファイル!`
     );
     return false;
   }
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传头像图片大小不能超过 ${props.fileSize} MB!`);
+      proxy.$modal.msgError(`アバターの画像サイズをアップロードすることはできません ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading("正在上传图片，请稍候...");
+  proxy.$modal.loading("写真をアップロードします，お待ちください...");
   number.value++;
 }
 
-// 文件个数超出
+// ファイルの数が超えています
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  proxy.$modal.msgError(`アップロードファイルの数はそれ以上を超えることはできません ${props.limit} 個々!`);
 }
 
-// 上传成功回调
+// 正常にアップロードします
 function handleUploadSuccess(res, file) {
   if (res.code === 200) {
     uploadList.value.push({ name: res.fileName, url: res.fileName });
@@ -159,7 +159,7 @@ function handleUploadSuccess(res, file) {
   }
 }
 
-// 删除图片
+// 写真を削除します
 function handleDelete(file) {
   const findex = fileList.value.map(f => f.name).indexOf(file.name);
   if (findex > -1 && uploadList.value.length === number.value) {
@@ -169,7 +169,7 @@ function handleDelete(file) {
   }
 }
 
-// 上传结束处理
+// エンディングをアップロードします
 function uploadedSuccessfully() {
   if (number.value > 0 && uploadList.value.length === number.value) {
     fileList.value = fileList.value.filter(f => f.url !== undefined).concat(uploadList.value);
@@ -180,19 +180,19 @@ function uploadedSuccessfully() {
   }
 }
 
-// 上传失败
+// アップロードに失敗しました
 function handleUploadError() {
-  proxy.$modal.msgError("上传图片失败");
+  proxy.$modal.msgError("写真をアップロードしました。失敗しました");
   proxy.$modal.closeLoading();
 }
 
-// 预览
+// プレビュー
 function handlePictureCardPreview(file) {
   dialogImageUrl.value = file.url;
   dialogVisible.value = true;
 }
 
-// 对象转成指定字符串分隔
+// オブジェクトは、指定された文字列分離に変換されます
 function listToString(list, separator) {
   let strs = "";
   separator = separator || ",";
@@ -206,7 +206,7 @@ function listToString(list, separator) {
 </script>
 
 <style scoped lang="scss">
-// .el-upload--picture-card 控制加号部分
+// .el-upload--picture-card 追加の番号パーツを制御します
 :deep(.hide .el-upload--picture-card) {
     display: none;
 }
