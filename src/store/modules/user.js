@@ -14,7 +14,7 @@ const useUserStore = defineStore(
       permissions: []
     }),
     actions: {
-      // 登录
+      // ログイン
       login(userInfo) {
         const username = userInfo.username.trim()
         const password = userInfo.password
@@ -30,14 +30,14 @@ const useUserStore = defineStore(
           })
         })
       },
-      // 获取用户信息
+      // ユーザー情報を取得します
       getInfo() {
         return new Promise((resolve, reject) => {
           getInfo().then(res => {
             const user = res.user
             const avatar = (user.avatar == "" || user.avatar == null) ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
 
-            if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+            if (res.roles && res.roles.length > 0) { // 検証rolesそれは空白のない配列ですか
               this.roles = res.roles
               this.permissions = res.permissions
             } else {
@@ -52,7 +52,7 @@ const useUserStore = defineStore(
           })
         })
       },
-      // 退出系统
+      // 出口システム
       logOut() {
         return new Promise((resolve, reject) => {
           logout(this.token).then(() => {

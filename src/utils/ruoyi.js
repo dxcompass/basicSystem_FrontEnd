@@ -1,11 +1,11 @@
 
 
 /**
- * 通用js方法封装处理
+ * ユニバーサルjsメソッドパッケージ処理
  * Copyright (c) 2019 ruoyi
  */
 
-// 日期格式化
+// 日付形式
 export function parseTime(time, pattern) {
   if (arguments.length === 0 || !time) {
     return null
@@ -46,14 +46,14 @@ export function parseTime(time, pattern) {
   return time_str
 }
 
-// 表单重置
+// フォームリセット
 export function resetForm(refName) {
   if (this.$refs[refName]) {
     this.$refs[refName].resetFields();
   }
 }
 
-// 添加日期范围
+// 日付範囲を追加します
 export function addDateRange(params, dateRange, propName) {
   let search = params;
   search.params = typeof (search.params) === 'object' && search.params !== null && !Array.isArray(search.params) ? search.params : {};
@@ -68,7 +68,7 @@ export function addDateRange(params, dateRange, propName) {
   return search;
 }
 
-// 回显数据字典
+// 若返りデータ辞書
 export function selectDictLabel(datas, value) {
   if (value === undefined) {
     return "";
@@ -86,7 +86,7 @@ export function selectDictLabel(datas, value) {
   return actions.join('');
 }
 
-// 回显数据字典（字符串数组）
+// 若返りデータ辞書（文字列配列）
 export function selectDictLabels(datas, value, separator) {
   if (value === undefined || value.length ===0) {
     return "";
@@ -112,7 +112,7 @@ export function selectDictLabels(datas, value, separator) {
   return actions.join('').substring(0, actions.join('').length - 1);
 }
 
-// 字符串格式化(%s )
+// 文字列のフォーマット(%s )
 export function sprintf(str) {
   var args = arguments, flag = true, i = 1;
   str = str.replace(/%s/g, function () {
@@ -126,7 +126,7 @@ export function sprintf(str) {
   return flag ? str : '';
 }
 
-// 转换字符串，undefined,null等转化为""
+// 変換された文字列，undefined,nullに変わります""
 export function parseStrEmpty(str) {
   if (!str || str == "undefined" || str == "null") {
     return "";
@@ -134,7 +134,7 @@ export function parseStrEmpty(str) {
   return str;
 }
 
-// 数据合并
+// データの合併
 export function mergeRecursive(source, target) {
   for (var p in target) {
     try {
@@ -151,11 +151,11 @@ export function mergeRecursive(source, target) {
 };
 
 /**
- * 构造树型结构数据
- * @param {*} data 数据源
- * @param {*} id id字段 默认 'id'
- * @param {*} parentId 父节点字段 默认 'parentId'
- * @param {*} children 孩子节点字段 默认 'children'
+ * ツリー構造データの構築
+ * @param {*} data 情報元
+ * @param {*} id id分野 デフォルト 'id'
+ * @param {*} parentId 父节点分野 デフォルト 'parentId'
+ * @param {*} children 孩子节点分野 デフォルト 'children'
  */
 export function handleTree(data, id, parentId, children) {
   let config = {
@@ -202,8 +202,8 @@ export function handleTree(data, id, parentId, children) {
 }
 
 /**
-* 参数处理
-* @param {*} params  参数
+* パラメーター処理
+* @param {*} params  パラメーター
 */
 export function tansParams(params) {
   let result = ''
@@ -228,7 +228,7 @@ export function tansParams(params) {
 }
 
 
-// 返回项目路径
+// プロジェクトパスに戻ります
 export function getNormalPath(p) {
   if (p.length === 0 || !p || p == 'undefined') {
     return p
@@ -240,7 +240,7 @@ export function getNormalPath(p) {
   return res;
 }
 
-// 验证是否为blob格式
+// 検証があるかどうかblobフォーマット
 export function blobValidate(data) {
   return data.type !== 'application/json'
 }

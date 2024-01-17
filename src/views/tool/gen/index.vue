@@ -52,7 +52,7 @@
           icon="Upload"
           @click="openImportTable"
           v-hasPermi="['tool:gen:import']"
-        >輸入</el-button>
+        >入力</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -104,7 +104,7 @@
       />
       <el-table-column label="作成時間" align="center" prop="createTime" width="160" />
       <el-table-column label="更新時間" align="center" prop="updateTime" width="160" />
-      <el-table-column label="動作" align="center" width="330" class-name="small-padding fixed-width">
+      <el-table-column label="アクション" align="center" width="330" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-tooltip content="プレビュー" placement="top">
             <el-button link type="primary" icon="View" @click="handlePreview(scope.row)" v-hasPermi="['tool:gen:preview']"></el-button>
@@ -205,12 +205,12 @@ function getList() {
     loading.value = false;
   });
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクションします */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 生成するコード動作します */
+/** 生成するコードアクションします */
 function handleGenTable(row) {
   const tbNames = row.tableName || tableNames.value;
   if (tbNames == "") {
@@ -225,7 +225,7 @@ function handleGenTable(row) {
     proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, "ruoyi.zip");
   }
 }
-/** 同期します数据库動作します */
+/** 同期します数据库アクションします */
 function handleSynchDb(row) {
   const tableName = row.tableName;
   proxy.$modal.confirm('確認要强制同期します"' + tableName + '"テーブル構造はありますか？？').then(function () {
@@ -234,11 +234,11 @@ function handleSynchDb(row) {
     proxy.$modal.msgSuccess("同期します成功");
   }).catch(() => {});
 }
-/** 打开輸入表弹窗 */
+/** 打开入力表弹窗 */
 function openImportTable() {
   proxy.$refs["importRef"].show();
 }
-/** 取り戻しボタン動作します */
+/** 取り戻しボタンアクションします */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
@@ -256,22 +256,22 @@ function handlePreview(row) {
 function copyTextSuccess() {
   proxy.$modal.msgSuccess("コピー成功");
 }
-// 多选框选中数据
+// マルチ選択ボックスはデータを選択します
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.tableId);
   tableNames.value = selection.map(item => item.tableName);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 改訂ボタン動作します */
+/** 改訂ボタンアクションします */
 function handleEditTable(row) {
   const tableId = row.tableId || ids.value[0];
   router.push({ path: "/tool/gen-edit/index/" + tableId, query: { pageNum: queryParams.value.pageNum } });
 }
-/**  削除ボタン動作します */
+/**  削除ボタンアクションします */
 function handleDelete(row) {
   const tableIds = row.tableId || ids.value;
-  proxy.$modal.confirm('是否確認 削除表编号为"' + tableIds + '"的数据项？').then(function () {
+  proxy.$modal.confirm('確認するかどうか テーブル番号を切ります"' + tableIds + '"データ項目？').then(function () {
     return delTable(tableIds);
   }).then(() => {
     getList();

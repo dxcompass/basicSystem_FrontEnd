@@ -36,11 +36,11 @@ const { proxy } = getCurrentInstance();
 const form = ref({});
 const rules = ref({
   nickName: [{ required: true, message: "ユーザーのニックネーム不能为空", trigger: "blur" }],
-  email: [{ required: true, message: "郵便地址不能为空", trigger: "blur" }, { type: "email", message: "正确的郵便地址", trigger: ["blur", "changeを入力してください"] }],
-  phonenumber: [{ required: true, message: "電話番号不能为空", trigger: "blur" }, { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正确的電話番号", trigger: "blurを入力してください" }],
+  email: [{ required: true, message: "郵便アドレスを空にすることはできません", trigger: "blur" }, { type: "email", message: "正しい郵便住所", trigger: ["blur", "changeを入力してください"] }],
+  phonenumber: [{ required: true, message: "電話番号を空にすることはできません", trigger: "blur" }, { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正しい電話番号", trigger: "blurを入力してください" }],
 });
 
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submit() {
   proxy.$refs.userRef.validate(valid => {
     if (valid) {

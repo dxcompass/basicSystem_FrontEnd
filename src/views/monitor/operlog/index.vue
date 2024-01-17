@@ -102,7 +102,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['monitor:operlog:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
@@ -274,7 +274,7 @@ function handleView(row) {
 /**  削除ボタン動作します */
 function handleDelete(row) {
   const operIds = row.operId || ids.value;
-  proxy.$modal.confirm('是否確認 削除ログ番号为"' + operIds + '"データ項目?').then(function () {
+  proxy.$modal.confirm('確認するかどうか 削除ログ番号为"' + operIds + '"データ項目?').then(function () {
     return delOperlog(operIds);
   }).then(() => {
     getList();
@@ -283,7 +283,7 @@ function handleDelete(row) {
 }
 /** 空のボタン動作します */
 function handleClean() {
-  proxy.$modal.confirm("是否確認空の所有動作します日志数据项?").then(function () {
+  proxy.$modal.confirm("確認するかどうか空の所有動作します日志数据项?").then(function () {
     return cleanOperlog();
   }).then(() => {
     getList();

@@ -76,7 +76,7 @@
          </el-table-column>
       </el-table>
 
-      <!-- 添加或改訂部门对话框 -->
+      <!-- ダイアログボックスを追加または放棄します -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
          <el-form ref="deptRef" :model="form" :rules="rules" label-width="80px">
             <el-row>
@@ -98,7 +98,7 @@
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="显示選別" prop="orderNum">
+                  <el-form-item label="表示選択" prop="orderNum">
                      <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
                   </el-form-item>
                </el-col>
@@ -163,8 +163,8 @@ const data = reactive({
   },
   rules: {
     parentId: [{ required: true, message: "より高いオフィス不能为空", trigger: "blur" }],
-    deptName: [{ required: true, message: "部署名不能为空", trigger: "blur" }],
-    orderNum: [{ required: true, message: "显示選別不能为空", trigger: "blur" }],
+    deptName: [{ required: true, message: "署名は空にすることはできません", trigger: "blur" }],
+    orderNum: [{ required: true, message: "表示選択不能为空", trigger: "blur" }],
     email: [{ type: "email", message: "正確かに的郵便地址", trigger: ["blur", "changeを入力してください"] }],
     phone: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正確かに的手机号码", trigger: "blurを入力してください" }]
   },
@@ -237,7 +237,7 @@ function handleUpdate(row) {
   getDept(row.deptId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "改訂部门";
+    title.value = "修正部門";
   });
 }
 /** 提交ボタン */
@@ -262,7 +262,7 @@ function submitForm() {
 }
 /** 取り除く去ボタン動作します */
 function handleDelete(row) {
-  proxy.$modal.confirm('是否確かに认取り除く去名称为"' + row.deptName + '"的数据项?').then(function() {
+  proxy.$modal.confirm('是否確かに认取り除く去名称为"' + row.deptName + '"データ項目?').then(function() {
     return delDept(row.deptId);
   }).then(() => {
     getList();

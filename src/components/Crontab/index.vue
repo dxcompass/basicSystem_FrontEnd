@@ -10,7 +10,7 @@
                 />
             </el-tab-pane>
 
-            <el-tab-pane label="分" v-if="shouldHide('min')">
+            <el-tab-pane label="ポイント" v-if="shouldHide('min')">
                 <CrontabMin
                     @update="updateCrontabValue"
                     :check="checkNumber"
@@ -67,11 +67,11 @@
 
         <div class="popup-main">
             <div class="popup-result">
-                <p class="title">時間表現</p>
+                <p class="title">時間パフォーマンス</p>
                 <table>
                     <thead>
                         <th v-for="item of tabTitles" :key="item">{{item}}</th>
-                        <th>Cron 表現</th>
+                        <th>Cron パフォーマンス</th>
                     </thead>
                     <tbody>
                         <td>
@@ -141,7 +141,7 @@ const props = defineProps({
         default: ""
     }
 })
-const tabTitles = ref(["2番", "分", "時間", "日", "月", "週", "年"])
+const tabTitles = ref(["2番", "ポイント", "時間", "日", "月", "週", "年"])
 const tabActive = ref(0)
 const hideComponent = ref([])
 const expression = ref('')
@@ -174,11 +174,11 @@ function shouldHide(key) {
     return !(hideComponent.value && hideComponent.value.includes(key))
 }
 function resolveExp() {
-    // 抗分析 表現
+    // 抗ポイント析 パフォーマンス
     if (expression.value) {
         const arr = expression.value.split(/\s+/)
         if (arr.length >= 6) {
-            //6 位以上是合法表現
+            //6 位以上是合法パフォーマンス
             let obj = {
                 second: arr[0],
                 min: arr[1],
@@ -193,7 +193,7 @@ function resolveExp() {
             }
         }
     } else {
-        // 没有传入的表現 復元する
+        // 没有传入的パフォーマンス 復元する
         clearCron()
     }
 }
@@ -201,7 +201,7 @@ function resolveExp() {
 function tabCheck(index) {
     tabActive.value = index
 }
-// サブコンポーネントによってトリガーされます，更改表現组成的字段值
+// サブコンポーネントによってトリガーされます，更改パフォーマンス组成的字段值
 function updateCrontabValue(name, value, from) {
     crontabValueObj.value[name] = value
 }
@@ -220,7 +220,7 @@ function checkNumber(value, minLimit, maxLimit) {
 function hidePopup() {
     emit("hide")
 }
-// 填充表現
+// 填充パフォーマンス
 function submitFill() {
     emit("fill", crontabValueString.value)
     hidePopup()

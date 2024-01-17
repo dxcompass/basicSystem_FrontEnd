@@ -39,7 +39,7 @@ const props = defineProps({
     default: () => {
       return {
         value: 'id', // IDフィールド名
-        label: 'label', // 表示名
+        label: 'label', // 名前を表示
         children: 'children' // 子级フィールド名
       }
     }

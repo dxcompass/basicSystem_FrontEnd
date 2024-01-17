@@ -2,7 +2,7 @@ import useTagsViewStore from '@/store/modules/tagsView'
 import router from '@/router'
 
 export default {
-  // 刷新当前tab页签
+  // 電流を更新しますtabブックマーク
   refreshPage(obj) {
     const { path, query, matched } = router.currentRoute.value;
     if (obj === undefined) {
@@ -22,14 +22,14 @@ export default {
       })
     })
   },
-  // 关闭当前tab页签，打开新页签
+  // 電流を閉じますtabブックマーク，開ける新ブックマーク
   closeOpenPage(obj) {
     useTagsViewStore().delView(router.currentRoute.value);
     if (obj !== undefined) {
       return router.push(obj);
     }
   },
-  // 关闭指定tab页签
+  // 閉じる指定しますtabブックマーク
   closePage(obj) {
     if (obj === undefined) {
       return useTagsViewStore().delView(router.currentRoute.value).then(({ visitedViews }) => {
@@ -42,27 +42,27 @@ export default {
     }
     return useTagsViewStore().delView(obj);
   },
-  // 关闭所有tab页签
+  // すべてを閉じますtabブックマーク
   closeAllPage() {
     return useTagsViewStore().delAllViews();
   },
-  // 关闭左侧tab页签
+  // 左側を閉じますtabブックマーク
   closeLeftPage(obj) {
     return useTagsViewStore().delLeftTags(obj || router.currentRoute.value);
   },
-  // 关闭右侧tab页签
+  // 右側をオフにしますtabブックマーク
   closeRightPage(obj) {
     return useTagsViewStore().delRightTags(obj || router.currentRoute.value);
   },
-  // 关闭其他tab页签
+  // もう一方を閉じますtabブックマーク
   closeOtherPage(obj) {
     return useTagsViewStore().delOthersViews(obj || router.currentRoute.value);
   },
-  // 打开tab页签
+  // 開けるtabブックマーク
   openPage(url) {
     return router.push(url);
   },
-  // 修改tab页签
+  // 改訂tabブックマーク
   updatePage(obj) {
     return useTagsViewStore().updateVisitedView(obj);
   }

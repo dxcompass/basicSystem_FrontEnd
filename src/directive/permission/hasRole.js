@@ -1,5 +1,5 @@
  /**
- * v-hasRole 角色权限处理
+ * v-hasRole 役割許可処理
  * Copyright (c) 2019 ruoyi
  */
  
@@ -22,7 +22,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
-      throw new Error(`请设置角色权限标签值`)
+      throw new Error(`文字許可ラベル値を設定してください`)
     }
   }
 }

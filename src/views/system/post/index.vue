@@ -72,7 +72,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:post:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
@@ -109,7 +109,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或改訂岗位对话框 -->
+      <!-- [投稿]ダイアログボックスを追加または放棄します -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="postRef" :model="form" :rules="rules" label-width="80px">
             <el-form-item label="ポジションタイトル" prop="postName">
@@ -233,10 +233,10 @@ function handleUpdate(row) {
   getPost(postId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "改訂岗位";
+    title.value = "投稿を修正します";
   });
 }
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submitForm() {
   proxy.$refs["postRef"].validate(valid => {
     if (valid) {
@@ -266,7 +266,7 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess("取り除く去成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("system/post/export", {
     ...queryParams.value

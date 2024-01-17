@@ -2,7 +2,7 @@
     <el-form>
         <el-form-item>
             <el-radio v-model='radioValue' :label="1">
-                分，フォーメーションを許可します[, - * /]
+                ポイント，フォーメーションを許可します[, - * /]
             </el-radio>
         </el-form-item>
 
@@ -10,15 +10,15 @@
             <el-radio v-model='radioValue' :label="2">
                 サイクル
                 <el-input-number v-model='cycle01' :min="0" :max="58" /> -
-                <el-input-number v-model='cycle02' :min="cycle01 + 1" :max="59" /> 分
+                <el-input-number v-model='cycle02' :min="cycle01 + 1" :max="59" /> ポイント
             </el-radio>
         </el-form-item>
 
         <el-form-item>
             <el-radio v-model='radioValue' :label="3">
                 から
-                <el-input-number v-model='average01' :min="0" :max="58" /> 分开始， 毎
-                <el-input-number v-model='average02' :min="1" :max="59 - average01" /> 分执行一次
+                <el-input-number v-model='average01' :min="0" :max="58" /> ポイント开始， 毎
+                <el-input-number v-model='average02' :min="1" :max="59 - average01" /> ポイント执行一次
             </el-radio>
         </el-form-item>
 

@@ -73,7 +73,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:dict:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -124,7 +124,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或改訂参数配置对话框 -->
+      <!-- [パラメーター構成]ダイアログボックスを追加または変更します -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="dataRef" :model="form" :rules="rules" label-width="80px">
             <el-form-item label="辞書">
@@ -286,10 +286,10 @@ function resetQuery() {
 function handleAdd() {
   reset();
   open.value = true;
-  title.value = "添加字典数据";
+  title.value = "辞書データを追加します";
   form.value.dictType = queryParams.value.dictType;
 }
-/** 多选框选中数据 */
+/** マルチ選択ボックスはデータを選択します */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.dictCode);
   single.value = selection.length != 1;
@@ -302,7 +302,7 @@ function handleUpdate(row) {
   getData(dictCode).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "改訂字典数据";
+    title.value = "カスタマイズされた辞書データ";
   });
 }
 /** 提交ボタン */
@@ -330,7 +330,7 @@ function submitForm() {
 /** 取り除く去ボタン動作します */
 function handleDelete(row) {
   const dictCodes = row.dictCode || ids.value;
-  proxy.$modal.confirm('是否確かに认取り除く去辞書为"' + dictCodes + '"的数据项？').then(function() {
+  proxy.$modal.confirm('是否確かに认取り除く去辞書为"' + dictCodes + '"データ項目？').then(function() {
     return delData(dictCodes);
   }).then(() => {
     getList();
@@ -338,7 +338,7 @@ function handleDelete(row) {
     useDictStore().removeDict(queryParams.value.dictType);
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("system/dict/data/export", {
     ...queryParams.value

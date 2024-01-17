@@ -87,7 +87,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:dict:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -139,7 +139,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或改訂参数配置对话框 -->
+      <!-- [パラメーター構成]ダイアログボックスを追加または変更します -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="dictRef" :model="form" :rules="rules" label-width="80px">
             <el-form-item label="辞書名" prop="dictName">
@@ -199,14 +199,14 @@ const data = reactive({
     status: undefined
   },
   rules: {
-    dictName: [{ required: true, message: "辞書名不能为空", trigger: "blur" }],
-    dictType: [{ required: true, message: "辞書不能为空", trigger: "blur" }]
+    dictName: [{ required: true, message: "辞書の名前は空にすることはできません", trigger: "blur" }],
+    dictType: [{ required: true, message: "辞書は空にすることはできません", trigger: "blur" }]
   },
 });
 
 const { queryParams, form, rules } = toRefs(data);
 
-/** 查询辞書列表 */
+/** クエリ辞書リスト */
 function getList() {
   loading.value = true;
   listType(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
@@ -264,7 +264,7 @@ function handleUpdate(row) {
     title.value = "改訂辞書";
   });
 }
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submitForm() {
   proxy.$refs["dictRef"].validate(valid => {
     if (valid) {
@@ -294,7 +294,7 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess("取り除く去成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("system/dict/type/export", {
     ...queryParams.value

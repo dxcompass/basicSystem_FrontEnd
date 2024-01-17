@@ -8,28 +8,28 @@ import { saveAs } from 'file-saver'
 import useUserStore from '@/store/modules/user'
 
 let downloadLoadingInstance;
-// 是否显示重新登录
+// ログインするために再び表示されますか
 export let isRelogin = { show: false };
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-// 创建axios实例
+// 作成するaxios実例
 const service = axios.create({
-  // axios中请求配置有baseURL选项，表示请求URL公共部分
+  // axios中央の要求構成baseURLオプション，リクエストを表示しますURLパブリックセクション
   baseURL: import.meta.env.VITE_APP_BASE_API,
-  // 超时
+  // タイムアウト
   timeout: 10000
 })
 
-// request拦截器
+// requestインターセプター
 service.interceptors.request.use(config => {
-  // 是否需要设置 token
+  // 設定が必要ですか？ token
   const isToken = (config.headers || {}).isToken === false
-  // 是否需要防止数据重复提交
+  // データが繰り返し送信するのを防ぐ必要がありますか
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
   if (getToken() && !isToken) {
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + getToken() // 各リクエストにキャリーカスタムとしますtoken 実際の状況に従って自分で変更してください
   }
-  // get请求映射params参数
+  // getマッピングを要求しますparamsパラメーター
   if (config.method === 'get' && config.params) {
     let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
@@ -42,22 +42,22 @@ service.interceptors.request.use(config => {
       data: typeof config.data === 'object' ? JSON.stringify(config.data) : config.data,
       time: new Date().getTime()
     }
-    const requestSize = Object.keys(JSON.stringify(requestObj)).length; // 请求数据大小
-    const limitSize = 5 * 1024 * 1024; // 限制存放数据5M
+    const requestSize = Object.keys(JSON.stringify(requestObj)).length; // データをリクエストします
+    const limitSize = 5 * 1024 * 1024; // 制限されたストレージデータ5M
     if (requestSize >= limitSize) {
-      console.warn(`[${config.url}]: ` + '请求数据大小超出允许的5M限制，无法进行防重复提交验证。')
+      console.warn(`[${config.url}]: ` + 'データをリクエストします超出允许的5M制限，防衛繰り返し提出検証を実施することはできません。')
       return config;
     }
     const sessionObj = cache.session.getJSON('sessionObj')
     if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
       cache.session.setJSON('sessionObj', requestObj)
     } else {
-      const s_url = sessionObj.url;                // 请求地址
-      const s_data = sessionObj.data;              // 请求数据
-      const s_time = sessionObj.time;              // 请求时间
-      const interval = 1000;                       // 间隔时间(ms)，小于此时间视为重复提交
+      const s_url = sessionObj.url;                // 住所を要求します
+      const s_data = sessionObj.data;              // データをリクエストします
+      const s_time = sessionObj.time;              // リクエスト時間
+      const interval = 1000;                       // 間隔(ms)，これよりも小さく、繰り返し提出されるとみなされます
       if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
-        const message = '数据正在处理，请勿重复提交';
+        const message = 'データは処理されています，提出を繰り返さないでください';
         console.warn(`[${s_url}]: ` + message)
         return Promise.reject(new Error(message))
       } else {
@@ -71,20 +71,20 @@ service.interceptors.request.use(config => {
     Promise.reject(error)
 })
 
-// 响应拦截器
+// 响应インターセプター
 service.interceptors.response.use(res => {
-    // 未设置状态码则默认成功状态
+    // ステータスコードが設定されていない場合、状態は成功しています
     const code = res.data.code || 200;
-    // 获取错误信息
+    // エラーメッセージを取得します
     const msg = errorCode[code] || res.data.msg || errorCode['default']
-    // 二进制数据则直接返回
+    // バイナリデータは直接返されます
     if (res.request.responseType ===  'blob' || res.request.responseType ===  'arraybuffer') {
       return res.data
     }
     if (code === 401) {
       if (!isRelogin.show) {
         isRelogin.show = true;
-        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' }).then(() => {
+        ElMessageBox.confirm('ログインステータスの有効期限が切れています，このページにとどまることができます，またはログインします', 'システムのヒント', { confirmButtonText: '再登録します', cancelButtonText: 'キャンセル', type: 'warning' }).then(() => {
           isRelogin.show = false;
           useUserStore().logOut().then(() => {
             location.href = '/index';
@@ -93,7 +93,7 @@ service.interceptors.response.use(res => {
         isRelogin.show = false;
       });
     }
-      return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+      return Promise.reject('無効なセッション，または会話の有効期限が切れます，请再登録します。')
     } else if (code === 500) {
       ElMessage({ message: msg, type: 'error' })
       return Promise.reject(new Error(msg))
@@ -111,20 +111,20 @@ service.interceptors.response.use(res => {
     console.log('err' + error)
     let { message } = error;
     if (message == "Network Error") {
-      message = "后端接口连接异常";
+      message = "バックエンドインターフェイス接続異常";
     } else if (message.includes("timeout")) {
-      message = "系统接口请求超时";
+      message = "システムインターフェイス请求タイムアウト";
     } else if (message.includes("Request failed with status code")) {
-      message = "系统接口" + message.substr(message.length - 3) + "异常";
+      message = "システムインターフェイス" + message.substr(message.length - 3) + "異常な";
     }
     ElMessage({ message: message, type: 'error', duration: 5 * 1000 })
     return Promise.reject(error)
   }
 )
 
-// 通用下载方法
+// GMダウンロード方法
 export function download(url, params, filename, config) {
-  downloadLoadingInstance = ElLoading.service({ text: "正在下载数据，请稍候", background: "rgba(0, 0, 0, 0.7)", })
+  downloadLoadingInstance = ElLoading.service({ text: "データをダウンロードします，お待ちください", background: "rgba(0, 0, 0, 0.7)", })
   return service.post(url, params, {
     transformRequest: [(params) => { return tansParams(params) }],
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -144,7 +144,7 @@ export function download(url, params, filename, config) {
     downloadLoadingInstance.close();
   }).catch((r) => {
     console.error(r)
-    ElMessage.error('下载文件出现错误，请联系管理员！')
+    ElMessage.error('ダウンロードファイルにエラーがあります，管理者に連絡してください！')
     downloadLoadingInstance.close();
   })
 }

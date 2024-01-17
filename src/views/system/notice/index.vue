@@ -109,7 +109,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或改訂公告对话框 -->
+      <!-- ダイアログボックスを追加または改修します -->
       <el-dialog :title="title" v-model="open" width="780px" append-to-body>
          <el-form ref="noticeRef" :model="form" :rules="rules" label-width="80px">
             <el-row>
@@ -248,7 +248,7 @@ function handleUpdate(row) {
     title.value = "改訂公告";
   });
 }
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submitForm() {
   proxy.$refs["noticeRef"].validate(valid => {
     if (valid) {

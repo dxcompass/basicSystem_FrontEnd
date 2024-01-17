@@ -17,8 +17,8 @@
         <el-form-item>
             <el-radio v-model='radioValue' :label="3">
                 から
-                <el-input-number v-model='average01' :min="0" :max="58" /> 2番开始，毎
-                <el-input-number v-model='average02' :min="1" :max="59 - average01" /> 2番执行一次
+                <el-input-number v-model='average01' :min="0" :max="58" /> 2始める，毎
+                <el-input-number v-model='average02' :min="1" :max="59 - average01" /> 21回実行します
             </el-radio>
         </el-form-item>
 

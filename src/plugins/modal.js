@@ -3,47 +3,47 @@ import { ElMessage, ElMessageBox, ElNotification, ElLoading } from 'element-plus
 let loadingInstance;
 
 export default {
-  // 消息提示
+  // 通知
   msg(content) {
     ElMessage.info(content)
   },
-  // 错误消息
+  // 間違った情報
   msgError(content) {
     ElMessage.error(content)
   },
-  // 成功消息
+  // 成功したニュース
   msgSuccess(content) {
     ElMessage.success(content)
   },
-  // 警告消息
+  // 警告メッセージ
   msgWarning(content) {
     ElMessage.warning(content)
   },
-  // 弹出提示
+  // ポップアップ
   alert(content) {
-    ElMessageBox.alert(content, "系统提示")
+    ElMessageBox.alert(content, "システムのヒント")
   },
-  // 错误提示
+  // エラーメッセージ
   alertError(content) {
-    ElMessageBox.alert(content, "系统提示", { type: 'error' })
+    ElMessageBox.alert(content, "システムのヒント", { type: 'error' })
   },
-  // 成功提示
+  // 成功したリマインダー
   alertSuccess(content) {
-    ElMessageBox.alert(content, "系统提示", { type: 'success' })
+    ElMessageBox.alert(content, "システムのヒント", { type: 'success' })
   },
-  // 警告提示
+  // 警告
   alertWarning(content) {
-    ElMessageBox.alert(content, "系统提示", { type: 'warning' })
+    ElMessageBox.alert(content, "システムのヒント", { type: 'warning' })
   },
-  // 通知提示
+  // 通知プロンプト
   notify(content) {
     ElNotification.info(content)
   },
-  // 错误通知
+  // エラー通知
   notifyError(content) {
     ElNotification.error(content);
   },
-  // 成功通知
+  // 成功した通知
   notifySuccess(content) {
     ElNotification.success(content)
   },
@@ -51,23 +51,23 @@ export default {
   notifyWarning(content) {
     ElNotification.warning(content)
   },
-  // 確認窗体
+  // ウィンドウを確認します
   confirm(content) {
-    return ElMessageBox.confirm(content, "系统提示", {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    return ElMessageBox.confirm(content, "システムのヒント", {
+      confirmButtonText: 'もちろん',
+      cancelButtonText: 'キャンセル',
       type: "warning",
     })
   },
-  // 提交内容
+  // 送信コンテンツ
   prompt(content) {
-    return ElMessageBox.prompt(content, "系统提示", {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    return ElMessageBox.prompt(content, "システムのヒント", {
+      confirmButtonText: 'もちろん',
+      cancelButtonText: 'キャンセル',
       type: "warning",
     })
   },
-  // 打开遮罩层
+  // マスクレイヤーを開きます
   loading(content) {
     loadingInstance = ElLoading.service({
       lock: true,
@@ -75,7 +75,7 @@ export default {
       background: "rgba(0, 0, 0, 0.7)",
     })
   },
-  // 关闭遮罩层
+  // マスクレイヤーをオフにします
   closeLoading() {
     loadingInstance.close();
   }

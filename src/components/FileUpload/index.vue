@@ -123,7 +123,7 @@ function handleBeforeUpload(file) {
 
 // ファイルの数が超えています
 function handleExceed() {
-  proxy.$modal.msgError(`アップロードファイルの数はそれ以上を超えることはできません ${props.limit} 個々!`);
+  proxy.$modal.msgError(`アップロードファイルの数はそれ以上を超えることはできません ${props.limit} 個々々!`);
 }
 
 // アップロードに失敗しました

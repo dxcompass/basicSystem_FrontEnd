@@ -67,11 +67,11 @@ const localCache = {
 
 export default {
   /**
-   * 会话级缓存
+   * セッションレベルのキャッシュ
    */
   session: sessionCache,
   /**
-   * 本地缓存
+   * ローカルキャッシュ
    */
   local: localCache
 }

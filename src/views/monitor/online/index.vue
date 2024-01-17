@@ -94,7 +94,7 @@ function resetQuery() {
 }
 /** 力ボタン動作します */
 function handleForceLogout(row) {
-    proxy.$modal.confirm('是否確認力名称为"' + row.userName + '"ユーザー?').then(function () {
+    proxy.$modal.confirm('電源名を確認するかどうか"' + row.userName + '"ユーザー?').then(function () {
   return forceLogout(row.tokenId);
   }).then(() => {
     getList();

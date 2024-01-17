@@ -1,39 +1,39 @@
 export default {
   /**
-   * 网页标题
+   * Webタイトル
    */
   title: import.meta.env.VITE_APP_TITLE,
   /**
-   * 侧边栏主题 深色主题theme-dark，浅色主题theme-light
+   * サイドバーテー​​マ 暗いテーマtheme-dark，明るい色のテーマtheme-light
    */
   sideTheme: 'theme-dark',
   /**
-   * 是否系统布局配置
+   * システムレイアウト構成かどうか
    */
   showSettings: true,
 
   /**
-   * 是否显示顶部导航
+   * トップナビゲーションを表示するかどうか
    */
   topNav: false,
 
   /**
-   * 是否显示 tagsView
+   * 表示するかどうか tagsView
    */
   tagsView: true,
 
   /**
-   * 是否固定头部
+   * 頭を固定するかどうか
    */
   fixedHeader: false,
 
   /**
-   * 是否显示logo
+   * 表示するかどうかlogo
    */
   sidebarLogo: true,
 
   /**
-   * 是否显示动态标题
+   * 表示するかどうか动态标题
    */
   dynamicTitle: false,
 

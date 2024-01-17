@@ -36,11 +36,11 @@ const equalToPassword = (rule, value, callback) => {
 };
 const rules = ref({
   oldPassword: [{ required: true, message: "以前のパスワード不能为空", trigger: "blur" }],
-  newPassword: [{ required: true, message: "新しいパスワード不能为空", trigger: "blur" }, { min: 6, max: 20, message: "長さ 6 到着 20 個々のキャラクター", trigger: "blur" }],
+  newPassword: [{ required: true, message: "新しいパスワード不能为空", trigger: "blur" }, { min: 6, max: 20, message: "長さ 6 到着 20 個々々のキャラクター", trigger: "blur" }],
   confirmPassword: [{ required: true, message: "パスワードを認証する不能为空", trigger: "blur" }, { required: true, validator: equalToPassword, trigger: "blur" }]
 });
 
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submit() {
   proxy.$refs.pwdRef.validate(valid => {
     if (valid) {

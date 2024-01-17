@@ -1,5 +1,5 @@
 /**
- * 判断url是否是http或https 
+ * 判断urlかどうかhttpまたはhttps 
  * @param {string} path
  * @returns {Boolean}
  */
@@ -8,7 +8,7 @@
 }
 
 /**
- * 判断path是否为外链
+ * 判断pathそれが外部チェーンであるかどうか
  * @param {string} path
  * @returns {Boolean}
  */

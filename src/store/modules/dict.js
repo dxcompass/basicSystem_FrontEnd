@@ -5,7 +5,7 @@ const useDictStore = defineStore(
       dict: new Array()
     }),
     actions: {
-      // 获取字典
+      // 辞書を入手します
       getDict(_key) {
         if (_key == null && _key == "") {
           return null;
@@ -20,7 +20,7 @@ const useDictStore = defineStore(
           return null;
         }
       },
-      // 设置字典
+      // 辞書を設定します
       setDict(_key, value) {
         if (_key !== null && _key !== "") {
           this.dict.push({
@@ -29,7 +29,7 @@ const useDictStore = defineStore(
           });
         }
       },
-      // 删除字典
+      // 辞書を削除します
       removeDict(_key) {
         var bln = false;
         try {
@@ -44,11 +44,11 @@ const useDictStore = defineStore(
         }
         return bln;
       },
-      // 清空字典
+      // 空の辞書
       cleanDict() {
         this.dict = new Array();
       },
-      // 初始字典
+      // 初期辞書
       initDict() {
       }
     }

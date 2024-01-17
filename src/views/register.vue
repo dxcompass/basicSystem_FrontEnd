@@ -68,7 +68,7 @@
         </div>
       </el-form-item>
     </el-form>
-    <!--  底  -->
+    <!--  終わり  -->
     <div class="el-register-footer">
       <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
     </div>
@@ -124,7 +124,7 @@ function handleRegister() {
       loading.value = true;
       register(registerForm.value).then(res => {
         const username = registerForm.value.username;
-        ElMessageBox.alert("<font color='red'>おめでとう，您的アカウント " + username + " 登録成功！</font>", "システムのヒント", {
+        ElMessageBox.alert("<font color='red'>おめでとう，您的アカウント " + username + " 従う録成功！</font>", "システムのヒント", {
           dangerouslyUseHTMLString: true,
           type: "success",
         }).then(() => {

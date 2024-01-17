@@ -25,33 +25,33 @@ function authRole(role) {
 }
 
 export default {
-  // 验证用户是否具备某权限
+  // ユーザーが特定の権限を持っているかどうかを確認します
   hasPermi(permission) {
     return authPermission(permission);
   },
-  // 验证用户是否含有指定权限，只需包含其中一个
+  // ユーザーが指定された権限を含んでいるかどうかを確認します，そのうちの1つを含めるだけです
   hasPermiOr(permissions) {
     return permissions.some(item => {
       return authPermission(item)
     })
   },
-  // 验证用户是否含有指定权限，必须全部拥有
+  // ユーザーが指定された権限を含んでいるかどうかを確認します，すべてが必要です
   hasPermiAnd(permissions) {
     return permissions.every(item => {
       return authPermission(item)
     })
   },
-  // 验证用户是否具备某角色
+  // ユーザーが特定の役割を持っているかどうかを確認します
   hasRole(role) {
     return authRole(role);
   },
-  // 验证用户是否含有指定角色，只需包含其中一个
+  // ユーザーに指定された役割が含まれているかどうかを確認します，そのうちの1つを含めるだけです
   hasRoleOr(roles) {
     return roles.some(item => {
       return authRole(item)
     })
   },
-  // 验证用户是否含有指定角色，必须全部拥有
+  // ユーザーに指定された役割が含まれているかどうかを確認します，すべてが必要です
   hasRoleAnd(roles) {
     return roles.every(item => {
       return authRole(item)

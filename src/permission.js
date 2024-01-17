@@ -26,17 +26,17 @@ router.beforeEach((to, from, next) => {
     } else {
       if (useUserStore().roles.length === 0) {
         isRelogin.show = true
-        // 判断当前用户是否已拉取完user_info信息
+        // 現在のユーザーが引き上げられたかどうかを判断しますuser_info情報
         useUserStore().getInfo().then(() => {
           isRelogin.show = false
           usePermissionStore().generateRoutes().then(accessRoutes => {
-            // 根据roles权限生成可访问的路由表
+            // によるとroles永続的な世代は、アクセス可能なルーティングテーブルを使用できます
             accessRoutes.forEach(route => {
               if (!isHttp(route.path)) {
-                router.addRoute(route) // 动态添加可访问路由表
+                router.addRoute(route) // アクセス可能なルーティングテーブルを動的に追加します
               }
             })
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            next({ ...to, replace: true }) // hack方法 確認するaddRoutes完了しました
           })
         }).catch(err => {
           useUserStore().logOut().then(() => {
@@ -49,12 +49,12 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    // 没有token
+    // いいえtoken
     if (whiteList.indexOf(to.path) !== -1) {
-      // 在免登录白名单，直接进入
+      // 無料のロゴのリスト，直接入力してください
       next()
     } else {
-      next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      next(`/login?redirect=${to.fullPath}`) // それ以外の場合は、すべてログインページにリダイレクトされます
       NProgress.done()
     }
   }

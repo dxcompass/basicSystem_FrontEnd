@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询部门列表
+// 問い合わせ部門のリスト
 export function listDept(query) {
   return request({
     url: '/system/dept/list',
@@ -9,7 +9,7 @@ export function listDept(query) {
   })
 }
 
-// 查询部门列表（排除节点）
+// 問い合わせ部門のリスト（ノードを排除します）
 export function listDeptExcludeChild(deptId) {
   return request({
     url: '/system/dept/list/exclude/' + deptId,
@@ -17,7 +17,7 @@ export function listDeptExcludeChild(deptId) {
   })
 }
 
-// 查询部门详细
+// クエリ部門の詳細
 export function getDept(deptId) {
   return request({
     url: '/system/dept/' + deptId,
@@ -25,7 +25,7 @@ export function getDept(deptId) {
   })
 }
 
-// 新增部门
+// 新しい部門
 export function addDept(data) {
   return request({
     url: '/system/dept',
@@ -34,7 +34,7 @@ export function addDept(data) {
   })
 }
 
-// 修改部门
+// 修正部
 export function updateDept(data) {
   return request({
     url: '/system/dept',
@@ -43,7 +43,7 @@ export function updateDept(data) {
   })
 }
 
-// 删除部门
+// 部門を削除します
 export function delDept(deptId) {
   return request({
     url: '/system/dept/' + deptId,

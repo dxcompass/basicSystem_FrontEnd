@@ -14,7 +14,7 @@
 
         <el-form-item>
             <el-radio v-model='radioValue' :label="3">
-                週期从
+                サイクル
                 <el-select clearable v-model="cycle01">
                     <el-option
                         v-for="(item,index) of weekList"
@@ -40,7 +40,7 @@
         <el-form-item>
             <el-radio v-model='radioValue' :label="4">
                 第
-                <el-input-number v-model='average01' :min="1" :max="4" /> 週的
+                <el-input-number v-model='average01' :min="1" :max="4" /> 化粧品
                 <el-select clearable v-model="average02">
                     <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
                 </el-select>

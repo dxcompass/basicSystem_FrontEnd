@@ -20,14 +20,14 @@ const useSettingsStore = defineStore(
       dynamicTitle: storageSetting.dynamicTitle === undefined ? dynamicTitle : storageSetting.dynamicTitle
     }),
     actions: {
-      // 修改布局设置
+      // レイアウト設定を変更します
       changeSetting(data) {
         const { key, value } = data
         if (this.hasOwnProperty(key)) {
           this[key] = value
         }
       },
-      // 设置网页标题
+      // Webページのタイトルを設定します
       setTitle(title) {
         this.title = title
         useDynamicTitle();

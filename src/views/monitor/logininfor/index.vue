@@ -88,7 +88,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['monitor:logininfor:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
@@ -189,7 +189,7 @@ function handleSortChange(column, prop, order) {
 /**  削除ボタン操作 */
 function handleDelete(row) {
   const infoIds = row.infoId || ids.value;
-  proxy.$modal.confirm('是否確認 削除アクセス番号为"' + infoIds + '"データ項目?').then(function () {
+  proxy.$modal.confirm('確認するかどうか 削除アクセス番号为"' + infoIds + '"データ項目?').then(function () {
     return delLogininfor(infoIds);
   }).then(() => {
     getList();
@@ -198,7 +198,7 @@ function handleDelete(row) {
 }
 /** 空のボタン操作 */
 function handleClean() {
-  proxy.$modal.confirm("是否確認空の所有登录日志データ項目?").then(function () {
+  proxy.$modal.confirm("確認するかどうか空の所有登录日志データ項目?").then(function () {
     return cleanLogininfor();
   }).then(() => {
     getList();
@@ -208,13 +208,13 @@ function handleClean() {
 /** ロックを解除しますボタン操作 */
 function handleUnlock() {
   const username = selectName.value;
-  proxy.$modal.confirm('是否確認ロックを解除しますユーザー"' + username + '"データ項目?').then(function () {
+  proxy.$modal.confirm('確認するかどうかロックを解除しますユーザー"' + username + '"データ項目?').then(function () {
     return unlockLogininfor(username);
   }).then(() => {
     proxy.$modal.msgSuccess("ユーザー" + username + "ロックを解除します成功");
   }).catch(() => {});
 }
-/** 輸出ボタン操作 */
+/** 出力ボタン操作 */
 function handleExport() {
   proxy.download("monitor/logininfor/export", {
     ...queryParams.value,

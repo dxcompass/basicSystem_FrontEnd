@@ -50,14 +50,14 @@
           @click.prevent="handleLogin"
         >
           <span v-if="!loading">ログイン</span>
-          <span v-else>ログイン 中...</span>
+          <span v-else>ログイン 真ん中...</span>
         </el-button>
         <div style="float: right;" v-if="register">
           <router-link class="link-type" :to="'/register'">今すぐサインアップしてください</router-link>
         </div>
       </el-form-item>
     </el-form>
-    <!--  底  -->
+    <!--  終わり  -->
     <div class="el-login-footer">
       <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
     </div>
@@ -105,7 +105,7 @@ function handleLogin() {
   proxy.$refs.loginRef.validate(valid => {
     if (valid) {
       loading.value = true;
-      // 勾选了需要记住パスワード设置在 cookie 中设置记住用户名和パスワード
+      // 勾选了需要记住パスワード设置在 cookie 真ん中设置记住用户名和パスワード
       if (loginForm.value.rememberMe) {
         Cookies.set("username", loginForm.value.username, { expires: 30 });
         Cookies.set("password", encrypt(loginForm.value.password), { expires: 30 });

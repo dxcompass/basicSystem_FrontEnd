@@ -17,8 +17,8 @@
         <el-form-item>
             <el-radio v-model='radioValue' :label="3">
                 から
-                <el-input-number v-model='average01' :min="0" :max="22" /> 時間开始，毎
-                <el-input-number v-model='average02' :min="1" :max="23 - average01" /> 時間执行一次
+                <el-input-number v-model='average01' :min="0" :max="22" /> 時間開始，毎
+                <el-input-number v-model='average02' :min="1" :max="23 - average01" /> 時間を1回実行します
             </el-radio>
         </el-form-item>
 

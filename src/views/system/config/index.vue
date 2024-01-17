@@ -82,7 +82,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:config:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -129,7 +129,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或改訂参数配置对话框 -->
+      <!-- [パラメーター構成]ダイアログボックスを追加または変更します -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
          <el-form ref="configRef" :model="form" :rules="rules" label-width="80px">
             <el-form-item label="パラメーター名" prop="configName">
@@ -255,10 +255,10 @@ function handleUpdate(row) {
   getConfig(configId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "改訂参数";
+    title.value = "パラメーターを改修します";
   });
 }
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submitForm() {
   proxy.$refs["configRef"].validate(valid => {
     if (valid) {
@@ -288,7 +288,7 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess("取り除く去成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("system/config/export", {
     ...queryParams.value

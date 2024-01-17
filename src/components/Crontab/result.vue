@@ -63,7 +63,7 @@ function expressionChange() {
     let DIdx = getIndex(DDate, nDay);
     let MIdx = getIndex(MDate, nMonth);
     let YIdx = getIndex(YDate, nYear);
-    // 重置月日時間ポイント2番的函数(後でもっと使用してください)
+    // 重置月日時間ポイント2ファン機能(後でもっと使用してください)
     const resetSecond = function () {
         sIdx = 0;
         nSecond = sDate[sIdx]
@@ -111,7 +111,7 @@ function expressionChange() {
     // サイクル年アレイ
     goYear: for (let Yi = YIdx; Yi < YDate.length; Yi++) {
         let YY = YDate[Yi];
-        // 如果到达最大值時間
+        // 最大値に達した場合
         if (nMonth > MDate[MDate.length - 1]) {
             resetMonth();
             continue;
@@ -121,7 +121,7 @@ function expressionChange() {
             // 割り当て、後の操作に便利です
             let MM = MDate[Mi];
             MM = MM < 10 ? '0' + MM : MM;
-            // 如果到达最大值時間
+            // 最大値に達した場合
             if (nDay > DDate[DDate.length - 1]) {
                 resetDay();
                 if (Mi === MDate.length - 1) {
@@ -135,7 +135,7 @@ function expressionChange() {
                 // 割り当て、後の操作に便利です
                 let DD = DDate[Di];
                 let thisDD = DD < 10 ? '0' + DD : DD;
-                // 如果到达最大值時間
+                // 最大値に達した場合
                 if (nHour > hDate[hDate.length - 1]) {
                     resetHour();
                     if (Di === DDate.length - 1) {
@@ -163,7 +163,7 @@ function expressionChange() {
                         }
                     }
                 } else if (dayRule.value === 'workDay') {
-                    // はいの場合は確認して調整します2月30号这种日期传进来時間需调整至正常月底
+                    // はいの場合は確認して調整します2月30数値の日付は、通常の月の終わりまで調整する必要があります
                     if (checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
                         while (DD > 0 && checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
                             DD--;
@@ -182,7 +182,7 @@ function expressionChange() {
                             DD -= 3;
                         }
                     } else if (thisWeek === 7) {
-                        // 当週6時間只需判断不是1番号は操作できます
+                        // 当週6時間は判断するだけではありません1番号は操作できます
                         if (dayRuleSup.value !== 1) {
                             DD--;
                         } else {
@@ -190,12 +190,12 @@ function expressionChange() {
                         }
                     }
                 } else if (dayRule.value === 'weekDay') {
-                    // 如果指定了是週几
+                    // 指定されている場合、毎週です
                     // 得る当前日期是属于週几
                     let thisWeek = formatDate(new Date(YY + '-' + MM + '-' + DD + ' 00:00:00'), 'week');
                     // 校验当前週是否存在する週池（dayRuleSup）真ん真ん中
                     if (dayRuleSup.value.indexOf(thisWeek) < 0) {
-                        // 如果到达最大值時間
+                        // 最大値に達した場合
                         if (Di === DDate.length - 1) {
                             resetDay();
                             if (Mi === MDate.length - 1) {
@@ -207,8 +207,8 @@ function expressionChange() {
                         continue;
                     }
                 } else if (dayRule.value === 'assWeek') {
-                    // 如果指定了是第几周的週几
-                    // 毎月取得します1号是属于週几
+                    // あなたが指定されている場合、週の週
+                    // 毎月取得します1数字は周jiに属します
                     let thisWeek = formatDate(new Date(YY + '-' + MM + '-' + DD + ' 00:00:00'), 'week');
                     if (dayRuleSup.value[1] >= thisWeek) {
                         DD = (dayRuleSup.value[0] - 1) * 7 + dayRuleSup.value[1] - thisWeek + 1;
@@ -216,8 +216,8 @@ function expressionChange() {
                         DD = dayRuleSup.value[0] * 7 + dayRuleSup.value[1] - thisWeek + 1;
                     }
                 } else if (dayRule.value === 'lastWeek') {
-                    // 如果指定了每月最后一个週几
-                    // はいの場合は確認して調整します2月30号这种日期传进来時間需调整至正常月底
+                    // 毎月の最後の週が指定されている場合
+                    // はいの場合は確認して調整します2月30数値の日付は、通常の月の終わりまで調整する必要があります
                     if (checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
                         while (DD > 0 && checkDate(YY + '-' + MM + '-' + thisDD + ' 00:00:00') !== true) {
                             DD--;
@@ -233,12 +233,12 @@ function expressionChange() {
                         DD -= 7 - (dayRuleSup.value - thisWeek)
                     }
                 }
-                // 判断時間间值是否小于10交換する“05”この形式
+                // 時間の間の時間が未満であるかどうかを判断します10交換する“05”この形式
                 DD = DD < 10 ? '0' + DD : DD;
                 // サイクル“時間”配列
                 goHour: for (let hi = hIdx; hi < hDate.length; hi++) {
                     let hh = hDate[hi] < 10 ? '0' + hDate[hi] : hDate[hi]
-                    // 如果到达最大值時間
+                    // 最大値に達した場合
                     if (nMin > mDate[mDate.length - 1]) {
                         resetMin();
                         if (hi === hDate.length - 1) {
@@ -258,7 +258,7 @@ function expressionChange() {
                     // サイクル"ポイント"配列
                     goMin: for (let mi = mIdx; mi < mDate.length; mi++) {
                         let mm = mDate[mi] < 10 ? '0' + mDate[mi] : mDate[mi];
-                        // 如果到达最大值時間
+                        // 最大値に達した場合
                         if (nSecond > sDate[sDate.length - 1]) {
                             resetSecond();
                             if (mi === mDate.length - 1) {
@@ -282,14 +282,14 @@ function expressionChange() {
                         // サイクル"2番"配列
                         goSecond: for (let si = sIdx; si <= sDate.length - 1; si++) {
                             let ss = sDate[si] < 10 ? '0' + sDate[si] : sDate[si];
-                            // 添加当前時間间（時間间合法性存在する日期サイクル時間已经判断）
+                            // 現在の時間を追加します（時間间合法性存在する日期サイクル時間已经判断）
                             if (MM !== '00' && DD !== '00') {
                                 resultArr.push(YY + '-' + MM + '-' + DD + ' ' + hh + ':' + mm + ':' + ss)
                                 nums++;
                             }
                             // 如果条数满了就退出サイクル
                             if (nums === 5) break goYear;
-                            // 如果到达最大值時間
+                            // 最大値に達した場合
                             if (si === sDate.length - 1) {
                                 resetSecond();
                                 if (mi === mDate.length - 1) {
@@ -366,7 +366,7 @@ function getMonthArr(rule) {
 }
 // 得る"日"配列-主に日付の日付
 function getWeekArr(rule) {
-    // 日付ルールの2つの値のみが両方です“”時間则表达日期是有选项的
+    // 日付ルールの2つの値のみが両方です“”時式の日付はオプションです
     if (dayRule.value === '' && dayRuleSup.value === '') {
         if (rule.indexOf('-') >= 0) {
             dayRule.value = 'weekDay';
@@ -451,7 +451,7 @@ function getSecondArr(rule) {
         dateArr.value[0] = getAssignArr(rule)
     }
 }
-// 通過によるとmin-max返回一个顺序的配列
+// 通過によるとmin-maxシーケンスに戻ります
 function getOrderArr(min, max) {
     let arr = [];
     for (let i = min; i <= max; i++) {
@@ -469,7 +469,7 @@ function getAssignArr(rule) {
     arr.sort(compare)
     return arr;
 }
-// 根据一定算术规则计算返回一个配列
+// 特定の算術ルールに基づいています
 function getAverageArr(rule, limit) {
     let arr = [];
     let agArr = rule.split('/');
@@ -481,7 +481,7 @@ function getAverageArr(rule, limit) {
     }
     return arr;
 }
-// 根据规则返回一个具有周期性的配列
+// ルールに従って定期的な一致ランクを返します
 function getCycleArr(rule, limit, status) {
     // status--かどうかを示します0始める（それから1始める）
     let arr = [];
@@ -524,7 +524,7 @@ function formatDate(value, type) {
     if (type === undefined) {
         return Y + '-' + (M < 10 ? '0' + M : M) + '-' + (D < 10 ? '0' + D : D) + ' ' + (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
     } else if (type === 'week') {
-        // 存在するquartz真ん真ん中 1为週日
+        // 存在するquartz真ん真ん中 1日曜日
         return week + 1;
     }
 }

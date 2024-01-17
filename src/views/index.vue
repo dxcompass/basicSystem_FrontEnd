@@ -18,13 +18,13 @@
             icon="Cloudy"
             plain
             @click="goTarget('https://gitee.com/y_project/RuoYi-Vue')"
-            >访问码云</el-button
+            >コードクラウドにアクセスしてください</el-button
           >
           <el-button
             icon="HomeFilled"
             plain
             @click="goTarget('http://ruoyi.vip')"
-            >访问主页</el-button
+            >ホームページにアクセスしてください</el-button
           >
         </p>
       </el-col>

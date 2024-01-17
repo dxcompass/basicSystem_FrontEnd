@@ -83,7 +83,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['monitor:job:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button 
@@ -132,8 +132,8 @@
          @pagination="getList"
       />
 
-      <!-- 调度日志詳細 -->
-      <el-dialog title="调度日志詳細" v-model="open" width="700px" append-to-body>
+      <!-- 懲戒的ログの詳細 -->
+      <el-dialog title="懲戒的ログの詳細" v-model="open" width="700px" append-to-body>
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
@@ -237,7 +237,7 @@ function handleView(row) {
 }
 /**  削除ボタン動作します */
 function handleDelete(row) {
-  proxy.$modal.confirm('是否確認 削除调度ログ番号为"' + ids.value + '"データ項目?').then(function () {
+  proxy.$modal.confirm('確認するかどうか 削除调度ログ番号为"' + ids.value + '"データ項目?').then(function () {
     return delJobLog(ids.value);
   }).then(() => {
     getList();
@@ -246,14 +246,14 @@ function handleDelete(row) {
 }
 /** 空のボタン動作します */
 function handleClean() {
-  proxy.$modal.confirm("是否確認空の所有调度日志数据项?").then(function () {
+  proxy.$modal.confirm("確認するかどうか空の所有调度日志数据项?").then(function () {
     return cleanJobLog();
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("空の成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("monitor/jobLog/export", {
     ...queryParams.value,

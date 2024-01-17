@@ -73,7 +73,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['monitor:job:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -179,11 +179,11 @@
                   </el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="cron表現" prop="cronExpression">
+                  <el-form-item label="cronパフォーマンス" prop="cronExpression">
                      <el-input v-model="form.cronExpression" placeholder="入ってくださいcron急行">
                         <template #append>
                            <el-button type="primary" @click="handleShowCron">
-                              生成表現
+                              生成パフォーマンス
                               <i class="el-icon-time el-icon--right"></i>
                            </el-button>
                         </template>
@@ -228,7 +228,7 @@
          </template>
       </el-dialog>
 
-     <el-dialog title="Cron表現生成器" v-model="openCron" append-to-body destroy-on-close>
+     <el-dialog title="Cronパフォーマンス生成器" v-model="openCron" append-to-body destroy-on-close>
        <crontab ref="crontabRef" @hide="openCron=false" @fill="crontabFill" :expression="expression"></crontab>
      </el-dialog>
 
@@ -245,7 +245,7 @@
                   <el-form-item label="作成時間：">{{ form.createTime }}</el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="cron表現：">{{ form.cronExpression }}</el-form-item>
+                  <el-form-item label="cronパフォーマンス：">{{ form.cronExpression }}</el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="次の実行時間：">{{ parseTime(form.nextValidTime) }}</el-form-item>
@@ -256,7 +256,7 @@
                <el-col :span="12">
                   <el-form-item label="ミッションステータス：">
                      <div v-if="form.status == 0">普通</div>
-                     <div v-else-if="form.status == 1">一時停止</div>
+                     <div v-else-if="form.status == 1">停止</div>
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -316,7 +316,7 @@ const data = reactive({
   rules: {
     jobName: [{ required: true, message: "ミッション名不能为空", trigger: "blur" }],
     invokeTarget: [{ required: true, message: "ターゲット文字列を呼び出します不能为空", trigger: "blur" }],
-    cronExpression: [{ required: true, message: "cron急行不能为空", trigger: "change" }]
+    cronExpression: [{ required: true, message: "cron空にすることはできません", trigger: "change" }]
   }
 });
 
@@ -397,9 +397,9 @@ function handleStatusChange(row) {
     row.status = row.status === "0" ? "1" : "0";
   });
 }
-/* 立即1回実行します */
+/* すぐに1回実行します */
 function handleRun(row) {
-  proxy.$modal.confirm('確かに认要立即1回実行します"' + row.jobName + '"タスクですか？?').then(function () {
+  proxy.$modal.confirm('確かに认要すぐに1回実行します"' + row.jobName + '"タスクですか？?').then(function () {
     return runJob(row.jobId, row.jobGroup);
   }).then(() => {
     proxy.$modal.msgSuccess("実行は成功します");})
@@ -412,7 +412,7 @@ function handleView(row) {
     openView.value = true;
   });
 }
-/** cron表現ボタン動作します */
+/** cronパフォーマンスボタン動作します */
 function handleShowCron() {
   expression.value = form.value.cronExpression;
   openCron.value = true;
@@ -439,10 +439,10 @@ function handleUpdate(row) {
   getJob(jobId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "改訂任务";
+    title.value = "再注文タスク";
   });
 }
-/** [提出]ボタン */
+/** [提案します]ボタン */
 function submitForm() {
   proxy.$refs["jobRef"].validate(valid => {
     if (valid) {
@@ -472,7 +472,7 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess("取り除く去成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタン動作します */
 function handleExport() {
   proxy.download("monitor/job/export", {
     ...queryParams.value,

@@ -5,7 +5,7 @@ import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView'
 import InnerLink from '@/layout/components/InnerLink'
 
-// 匹配views里面所有的.vue文件
+// マッチviewsその中で.vue書類
 const modules = import.meta.glob('./../../views/**/*.vue')
 
 const usePermissionStore = defineStore(
@@ -34,7 +34,7 @@ const usePermissionStore = defineStore(
       },
       generateRoutes(roles) {
         return new Promise(resolve => {
-          // 向后端请求路由数据
+          // バックエンドからルートデータをリクエストします
           getRouters().then(res => {
             const sdata = JSON.parse(JSON.stringify(res.data))
             const rdata = JSON.parse(JSON.stringify(res.data))
@@ -55,14 +55,14 @@ const usePermissionStore = defineStore(
     }
   })
 
-// 遍历后台传来的路由字符串，转换为组件对象
+// 背景の背景からのルーティング文字列，コンポーネントオブジェクトに変換します
 function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
     if (route.component) {
-      // Layout ParentView 组件特殊处理
+      // Layout ParentView コンポーネントの特別な処理
       if (route.component === 'Layout') {
         route.component = Layout
       } else if (route.component === 'ParentView') {
@@ -111,7 +111,7 @@ function filterChildren(childrenMap, lastRouter = false) {
   return children
 }
 
-// 动态路由遍历，验证是否具备权限
+// 動的ルートトラバーサル，許可があるかどうかを確認します
 export function filterDynamicRoutes(routes) {
   const res = []
   routes.forEach(route => {

@@ -3,7 +3,7 @@ import defaultSettings from '@/settings'
 import useSettingsStore from '@/store/modules/settings'
 
 /**
- * 动态修改标题
+ * 動的変更タイトル
  */
 export function useDynamicTitle() {
   const settingsStore = useSettingsStore();

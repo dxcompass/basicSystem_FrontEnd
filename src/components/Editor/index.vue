@@ -78,15 +78,15 @@ const options = ref({
   modules: {
     // ツールバー構成
     toolbar: [
-      ["bold", "italic", "underline", "strike"],      // 大胆な 斜めの体 下線 行を削除します
+      ["bold", "italic", "underline", "strike"],      // 大胆な 斜めの体 降りる 行を削除します
       ["blockquote", "code-block"],                   // 引用  コードブロック
-      [{ list: "ordered" }, { list: "bullet" }],      // 秩序ある、不利益
+      [{ list: "ordered" }, { list: "bullet" }],      // 秩序ある、メリットはありません
       [{ indent: "-1" }, { indent: "+1" }],           // インデント
       [{ size: ["small", false, "large", "huge"] }],  // フォントサイズ
       [{ header: [1, 2, 3, 4, 5, 6, false] }],        // タイトル
       [{ color: [] }, { background: [] }],            // フォントカラー、フォントの背景色
       [{ align: [] }],                                // アライメント
-      ["clean"],                                      // 清除文章フォーマット
+      ["clean"],                                      // 清除記事フォーマット
       ["link", "image", "video"]                      // リンク、写真、ビデオ
     ],
   },
@@ -112,7 +112,7 @@ watch(() => props.modelValue, (v) => {
   }
 }, { immediate: true });
 
-// 如果设置了上传地址则自定义写真上传事件
+// アップロードアドレスが設定されている場合は、写真アップロードイベントをカスタマイズします
 onMounted(() => {
   if (props.type == 'url') {
     let quill = quillEditorRef.value.getQuill();
@@ -155,18 +155,18 @@ function handleUploadSuccess(res, file) {
     let quill = toRaw(quillEditorRef.value).getQuill();
     // カーソル位置を取得します
     let length = quill.selection.savedRange.index;
-    // 插入写真，res.url为服务器返回的写真リンク地址
+    // 写真を挿入します，res.url为服务器返回的写真リンク地址
     quill.insertEmbed(length, "image", import.meta.env.VITE_APP_BASE_API + res.fileName);
     // カーソルを最後まで調整します
     quill.setSelection(length + 1);
   } else {
-    proxy.$modal.msgError("写真插入失败");
+    proxy.$modal.msgError("写真の挿入障害");
   }
 }
 
 // 失敗した取り扱いをアップロードします
 function handleUploadError() {
-  proxy.$modal.msgError("写真插入失败");
+  proxy.$modal.msgError("写真の挿入障害");
 }
 </script>
 
@@ -210,7 +210,7 @@ function handleUploadError() {
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-  content: "文章";
+  content: "記事";
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
@@ -246,6 +246,6 @@ function handleUploadError() {
 }
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
-  content: "同等";
+  content: "等しい";
 }
 </style>

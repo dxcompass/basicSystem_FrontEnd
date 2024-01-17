@@ -1,5 +1,5 @@
  /**
- * v-hasPermi 操作权限处理
+ * v-hasPermi 操作許可処理
  * Copyright (c) 2019 ruoyi
  */
  
@@ -22,7 +22,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
-      throw new Error(`请设置操作权限标签值`)
+      throw new Error(`運用許可ラベル値を設定してください`)
     }
   }
 }

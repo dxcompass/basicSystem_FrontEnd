@@ -1,5 +1,5 @@
 /**
-* v-copyText 复制文本内容
+* v-copyText テキストコンテンツをコピーします
 * Copyright (c) 2022 ruoyi
 */
 

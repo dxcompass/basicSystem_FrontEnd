@@ -1,8 +1,8 @@
 import useUserStore from '@/store/modules/user'
 
 /**
- * 字符权限校验
- * @param {Array} value 校验值
+ * 文字許可検証
+ * @param {Array} value 検証
  * @returns {Boolean}
  */
 export function checkPermi(value) {
@@ -26,8 +26,8 @@ export function checkPermi(value) {
 }
 
 /**
- * 角色权限校验
- * @param {Array} value 校验值
+ * 文字許可検証
+ * @param {Array} value 検証
  * @returns {Boolean}
  */
 export function checkRole(value) {
