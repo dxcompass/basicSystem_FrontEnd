@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">Ruoyiバックグラウンド管理システム</h3>
+      <h3 class="title">Dxc管理システム</h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -49,8 +49,8 @@
           style="width:100%;"
           @click.prevent="handleLogin"
         >
-          <span v-if="!loading">従う 記録</span>
-          <span v-else>従う 記録 中...</span>
+          <span v-if="!loading">ログイン</span>
+          <span v-else>ログイン 中...</span>
         </el-button>
         <div style="float: right;" v-if="register">
           <router-link class="link-type" :to="'/register'">今すぐサインアップしてください</router-link>

@@ -63,7 +63,7 @@
          <el-table-column label="ユーザーのニックネーム" prop="nickName" :show-overflow-tooltip="true" />
          <el-table-column label="郵便" prop="email" :show-overflow-tooltip="true" />
          <el-table-column label="携帯電話" prop="phonenumber" :show-overflow-tooltip="true" />
-         <el-table-column label="州" align="center" prop="status">
+         <el-table-column label="ステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>

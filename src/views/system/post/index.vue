@@ -19,8 +19,8 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="州" prop="status">
-            <el-select v-model="queryParams.status" placeholder="岗位州" clearable style="width: 200px">
+         <el-form-item label="ステータス" prop="status">
+            <el-select v-model="queryParams.status" placeholder="岗位ステータス" clearable style="width: 200px">
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -83,7 +83,7 @@
          <el-table-column label="ジョブコード" align="center" prop="postCode" />
          <el-table-column label="ポジションタイトル" align="center" prop="postName" />
          <el-table-column label="ジョブソート" align="center" prop="postSort" />
-         <el-table-column label="州" align="center" prop="status">
+         <el-table-column label="ステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
@@ -116,12 +116,12 @@
                <el-input v-model="form.postName" placeholder="ポジションタイトルを入力してください" />
             </el-form-item>
             <el-form-item label="ジョブコード" prop="postCode">
-               <el-input v-model="form.postCode" placeholder="コーディング名を入力してください"" />
+               <el-input v-model="form.postCode" placeholder="コーディング名を入力してください" />
             </el-form-item>
             <el-form-item label="ジョブオーダー" prop="postSort">
                <el-input-number v-model="form.postSort" controls-position="right" :min="0" />
             </el-form-item>
-            <el-form-item label="岗位州" prop="status">
+            <el-form-item label="岗位ステータス" prop="status">
                <el-radio-group v-model="form.status">
                   <el-radio
                      v-for="dict in sys_normal_disable"
@@ -131,7 +131,7 @@
                </el-radio-group>
             </el-form-item>
             <el-form-item label="述べる" prop="remark">
-               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"" />
+               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください" />
             </el-form-item>
          </el-form>
          <template #footer>

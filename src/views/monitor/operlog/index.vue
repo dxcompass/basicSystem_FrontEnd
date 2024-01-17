@@ -43,10 +43,10 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="州" prop="status">
+         <el-form-item label="ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="動作します州"
+               placeholder="動作しますステータス"
                clearable
                style="width: 240px"
             >
@@ -118,7 +118,7 @@
          </el-table-column>
          <el-table-column label="オペレーター" align="center" width="110" prop="operName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
          <el-table-column label="動作しますアドレス" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
-         <el-table-column label="動作します州" align="center" prop="status">
+         <el-table-column label="動作しますステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
@@ -172,7 +172,7 @@
                   <el-form-item label="パラメーターを返します：">{{ form.jsonResult }}</el-form-item>
                </el-col>
                <el-col :span="8">
-                  <el-form-item label="動作します州：">
+                  <el-form-item label="動作しますステータス：">
                      <div v-if="form.status === 0">普通</div>
                      <div v-else-if="form.status === 1">失敗</div>
                   </el-form-item>

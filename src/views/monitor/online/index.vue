@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true">
-         <el-form-item label="ログインアドレス" prop="ipaddr">
+         <el-form-item label="ログインIP" prop="ipaddr">
             <el-input
                v-model="queryParams.ipaddr"
-               placeholder="ログインアドレスを入力してください"
+               placeholder="ログインIPを入力してください"
                clearable
                style="width: 200px"
                @keyup.enter="handleQuery"
@@ -41,7 +41,7 @@
          <el-table-column label="ログイン" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="オペレーティング·システム" align="center" prop="os" :show-overflow-tooltip="true" />
          <el-table-column label="ブラウザ" align="center" prop="browser" :show-overflow-tooltip="true" />
-         <el-table-column label="時間を記録します" align="center" prop="loginTime" width="180">
+         <el-table-column label="時間" align="center" prop="loginTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.loginTime) }}</span>
             </template>

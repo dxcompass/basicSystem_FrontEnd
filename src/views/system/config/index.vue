@@ -151,7 +151,7 @@
                </el-radio-group>
             </el-form-item>
             <el-form-item label="述べる" prop="remark">
-               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"" />
+               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください" />
             </el-form-item>
          </el-form>
          <template #footer>

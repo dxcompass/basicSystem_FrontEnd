@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="ログインアドレス" prop="ipaddr">
+         <el-form-item label="ログインIP" prop="ipaddr">
             <el-input
                v-model="queryParams.ipaddr"
-               placeholder="ログインアドレスを入力してください"
+               placeholder="ログインIPを入力してください"
                clearable
                style="width: 240px;"
                @keyup.enter="handleQuery"
@@ -19,10 +19,10 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="州" prop="status">
+         <el-form-item label="ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="登录州"
+               placeholder="登录ステータス"
                clearable
                style="width: 240px"
             >
@@ -34,7 +34,7 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="時間を記録します" style="width: 308px">
+         <el-form-item label="時間" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD HH:mm:ss"
@@ -101,7 +101,7 @@
          <el-table-column label="ログイン" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
          <el-table-column label="オペレーティング·システム" align="center" prop="os" :show-overflow-tooltip="true" />
          <el-table-column label="ブラウザ" align="center" prop="browser" :show-overflow-tooltip="true" />
-         <el-table-column label="登录州" align="center" prop="status">
+         <el-table-column label="登录ステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>

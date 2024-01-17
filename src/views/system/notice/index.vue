@@ -82,7 +82,7 @@
                <dict-tag :options="sys_notice_type" :value="scope.row.noticeType" />
             </template>
          </el-table-column>
-         <el-table-column label="州" align="center" prop="status" width="100">
+         <el-table-column label="ステータス" align="center" prop="status" width="100">
             <template #default="scope">
                <dict-tag :options="sys_notice_status" :value="scope.row.status" />
             </template>
@@ -131,7 +131,7 @@
                   </el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="州">
+                  <el-form-item label="ステータス">
                      <el-radio-group v-model="form.status">
                         <el-radio
                            v-for="dict in sys_notice_status"

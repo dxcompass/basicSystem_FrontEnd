@@ -10,8 +10,8 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="州" prop="status">
-            <el-select v-model="queryParams.status" placeholder="部门州" clearable style="width: 200px">
+         <el-form-item label="ステータス" prop="status">
+            <el-select v-model="queryParams.status" placeholder="部门ステータス" clearable style="width: 200px">
                <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -57,7 +57,7 @@
       >
          <el-table-column prop="deptName" label="部署名" width="260"></el-table-column>
          <el-table-column prop="orderNum" label="選別" width="200"></el-table-column>
-         <el-table-column prop="status" label="州" width="100">
+         <el-table-column prop="status" label="ステータス" width="100">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
@@ -118,7 +118,7 @@
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="部门州">
+                  <el-form-item label="部门ステータス">
                      <el-radio-group v-model="form.status">
                         <el-radio
                            v-for="dict in sys_normal_disable"

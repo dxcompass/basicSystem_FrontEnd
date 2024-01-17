@@ -98,7 +98,7 @@
          </el-table-column>
          <el-table-column label="ターゲット文字列を呼び出します" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
          <el-table-column label="cron急行" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
-         <el-table-column label="州" align="center">
+         <el-table-column label="ステータス" align="center">
             <template #default="scope">
                <el-switch
                   v-model="scope.row.status"
@@ -191,7 +191,7 @@
                   </el-form-item>
                </el-col>
                <el-col :span="24" v-if="form.jobId !== undefined">
-                  <el-form-item label="州">
+                  <el-form-item label="ステータス">
                      <el-radio-group v-model="form.status">
                         <el-radio
                            v-for="dict in sys_job_status"

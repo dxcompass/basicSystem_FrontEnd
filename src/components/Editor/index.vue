@@ -90,7 +90,7 @@ const options = ref({
       ["link", "image", "video"]                      // リンク、写真、ビデオ
     ],
   },
-  placeholder: "コンテンツを入力してください"",
+  placeholder: "コンテンツを入力してください",
   readOnly: props.readOnly
 });
 

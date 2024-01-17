@@ -4,7 +4,7 @@
       v-model="iconName"
       class="icon-search"
       clearable
-      placeholder="アイコン名を入力してください""
+      placeholder="アイコン名を入力してください"
       @clear="filterIcons"
       @input="filterIcons"
     >

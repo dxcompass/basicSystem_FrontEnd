@@ -19,10 +19,10 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="州" prop="status">
+         <el-form-item label="ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="字典州"
+               placeholder="字典ステータス"
                clearable
                style="width: 240px"
             >
@@ -112,7 +112,7 @@
                </router-link>
             </template>
          </el-table-column>
-         <el-table-column label="州" align="center" prop="status">
+         <el-table-column label="ステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
@@ -148,7 +148,7 @@
             <el-form-item label="辞書" prop="dictType">
                <el-input v-model="form.dictType" placeholder="辞書を入力してください" />
             </el-form-item>
-            <el-form-item label="州" prop="status">
+            <el-form-item label="ステータス" prop="status">
                <el-radio-group v-model="form.status">
                   <el-radio
                      v-for="dict in sys_normal_disable"
@@ -158,7 +158,7 @@
                </el-radio-group>
             </el-form-item>
             <el-form-item label="述べる" prop="remark">
-               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください""></el-input>
+               <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"></el-input>
             </el-form-item>
          </el-form>
          <template #footer>
