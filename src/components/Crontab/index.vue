@@ -10,7 +10,7 @@
                 />
             </el-tab-pane>
 
-            <el-tab-pane label="ポイント" v-if="shouldHide('min')">
+            <el-tab-pane label="分" v-if="shouldHide('min')">
                 <CrontabMin
                     @update="updateCrontabValue"
                     :check="checkNumber"

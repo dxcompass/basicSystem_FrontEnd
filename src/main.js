@@ -13,7 +13,7 @@ import store from './store'
 import router from './router'
 import directive from './directive' // directive
 
-// 登録する
+// Commandを登録する
 import plugins from './plugins' // plugins
 import { download } from '@/utils/request'
 
@@ -74,7 +74,7 @@ app.component('svg-icon', SvgIcon)
 
 directive(app)
 
-// 使用element-plus グローバルサイズを設定します
+// element-plusを使用して、 グローバルサイズを設定します
 app.use(ElementPlus, {
   locale: locale,
   // サポート large、default、small

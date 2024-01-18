@@ -33,7 +33,7 @@ export default {
   sidebarLogo: true,
 
   /**
-   * 表示するかどうか动态标题
+   * 表示するかどうかタイトル
    */
   dynamicTitle: false,
 
