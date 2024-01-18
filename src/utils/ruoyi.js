@@ -1,10 +1,4 @@
 
-
-/**
- * ユニバーサルjsメソッドパッケージ処理
- * Copyright (c) 2019 ruoyi
- */
-
 // 日付形式
 export function parseTime(time, pattern) {
   if (arguments.length === 0 || !time) {
