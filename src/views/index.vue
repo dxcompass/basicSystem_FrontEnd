@@ -17,14 +17,14 @@
             type="primary"
             icon="Cloudy"
             plain
-            @click="goTarget('https://gitee.com/y_project/RuoYi-Vue')"
-            >コードクラウドにアクセスしてください</el-button
+            @click="goTarget('https://github.com/mengjunqing/basicSystem_FrontEnd')"
+            >FrontEnd</el-button
           >
           <el-button
             icon="HomeFilled"
             plain
-            @click="goTarget('http://ruoyi.vip')"
-            >ホームページにアクセスしてください</el-button
+            @click="goTarget('https://github.com/mengjunqing/basicSystem_BackEnd')"
+            >BackEnd</el-button
           >
         </p>
       </el-col>

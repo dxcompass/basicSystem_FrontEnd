@@ -389,11 +389,11 @@ const data = reactive({
     deptId: undefined
   },
   rules: {
-    userName: [{ required: true, message: "ユーザー名不能为空", trigger: "blur" }, { min: 2, max: 20, message: "ユーザー名长度必须介于 2 そして 20 間", trigger: "blur" }],
-    nickName: [{ required: true, message: "ユーザーのニックネーム不能为空", trigger: "blur" }],
-    password: [{ required: true, message: "ユーザーのパスワード不能为空", trigger: "blur" }, { min: 5, max: 20, message: "ユーザーのパスワード长度必须介于 5 そして 20 間", trigger: "blur" }],
+    userName: [{ required: true, message: "ユーザー名 空であってはならない", trigger: "blur" }, { min: 2, max: 20, message: "長さは2から20の間でなければならない", trigger: "blur" }],
+    nickName: [{ required: true, message: "ユーザーのニックネーム 空であってはならない", trigger: "blur" }],
+    password: [{ required: true, message: "ユーザーのパスワード 空であってはならない", trigger: "blur" }, { min: 5, max: 20, message: "ユーザーのパスワード長さは5から20の間でなければならない", trigger: "blur" }],
     email: [{ type: "email", message: "入ってください正確かに的郵便地址", trigger: ["blur", "change"] }],
-    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "入ってください正確かに的電話番号", trigger: "blur" }]
+    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正確かに的電話番号入ってください", trigger: "blur" }]
   }
 });
 
