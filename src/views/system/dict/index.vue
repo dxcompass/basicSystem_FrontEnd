@@ -46,7 +46,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -78,7 +78,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['system:dict:remove']"
-            >取り除く去</el-button>
+            >削除</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -117,16 +117,16 @@
                <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="述べる" align="center" prop="remark" :show-overflow-tooltip="true" />
+         <el-table-column label="備考" align="center" prop="remark" :show-overflow-tooltip="true" />
          <el-table-column label="作成時間" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" width="160" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" width="160" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:dict:edit']">改訂</el-button>
-               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dict:remove']">取り除く去</el-button>
+               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dict:remove']">削除</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -157,7 +157,7 @@
                   >{{ dict.label }}</el-radio>
                </el-radio-group>
             </el-form-item>
-            <el-form-item label="述べる" prop="remark">
+            <el-form-item label="備考" prop="remark">
                <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"></el-input>
             </el-form-item>
          </el-form>
@@ -220,7 +220,7 @@ function cancel() {
   open.value = false;
   reset();
 }
-/** 表单選ぶり戻し */
+/** 表单再読み込み */
 function reset() {
   form.value = {
     dictId: undefined,
@@ -231,18 +231,18 @@ function reset() {
   };
   proxy.resetForm("dictRef");
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 選ぶり戻しボタン動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
-/** 増加ボタン動作します */
+/** 増加ボタンアクション */
 function handleAdd() {
   reset();
   open.value = true;
@@ -254,7 +254,7 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 改訂ボタン動作します */
+/** 改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   const dictId = row.dictId || ids.value;
@@ -284,23 +284,23 @@ function submitForm() {
     }
   });
 }
-/** 取り除く去ボタン動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const dictIds = row.dictId || ids.value;
-  proxy.$modal.confirm('是否確かに认取り除く去辞書番号为"' + dictIds + '"データ項目？').then(function() {
+  proxy.$modal.confirm('是否確かに认削除辞書番号为"' + dictIds + '"データ項目？').then(function() {
     return delType(dictIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取り除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
-/** 出力ボタン動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("system/dict/type/export", {
     ...queryParams.value
   }, `dict_${new Date().getTime()}.xlsx`);
 }
-/** キャッシュを更新しますボタン動作します */
+/** キャッシュを更新しますボタンアクション */
 function handleRefreshCache() {
   refreshCache().then(() => {
     proxy.$modal.msgSuccess("リフレッシュします");

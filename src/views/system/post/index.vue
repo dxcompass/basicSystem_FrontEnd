@@ -31,7 +31,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -63,7 +63,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['system:post:remove']"
-            >取り除く去</el-button>
+            >削除</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -93,10 +93,10 @@
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" width="180" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" width="180" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:post:edit']">改訂</el-button>
-               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:post:remove']">取り除く去</el-button>
+               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:post:remove']">削除</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -130,7 +130,7 @@
                   >{{ dict.label }}</el-radio>
                </el-radio-group>
             </el-form-item>
-            <el-form-item label="述べる" prop="remark">
+            <el-form-item label="備考" prop="remark">
                <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください" />
             </el-form-item>
          </el-form>
@@ -192,7 +192,7 @@ function cancel() {
   open.value = false;
   reset();
 }
-/** 表单選ぶり戻し */
+/** 表单再読み込み */
 function reset() {
   form.value = {
     postId: undefined,
@@ -204,12 +204,12 @@ function reset() {
   };
   proxy.resetForm("postRef");
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 選ぶり戻しボタン動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
@@ -220,13 +220,13 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 増加ボタン動作します */
+/** 増加ボタンアクション */
 function handleAdd() {
   reset();
   open.value = true;
   title.value = "役職";
 }
-/** 改訂ボタン動作します */
+/** 改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   const postId = row.postId || ids.value;
@@ -256,17 +256,17 @@ function submitForm() {
     }
   });
 }
-/** 取り除く去ボタン動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const postIds = row.postId || ids.value;
-  proxy.$modal.confirm('是否確かに认取り除く去ジョブ番号为"' + postIds + '"データ項目？').then(function() {
+  proxy.$modal.confirm('是否確かに认削除ジョブ番号为"' + postIds + '"データ項目？').then(function() {
     return delPost(postIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取り除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
-/** 出力ボタン動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("system/post/export", {
     ...queryParams.value

@@ -24,9 +24,9 @@
             </template>
          </el-table-column>
          <el-table-column type="selection" :reserve-selection="true" width="55"></el-table-column>
-         <el-table-column label="文字番号" align="center" prop="roleId" />
+         <el-table-column label="番号" align="center" prop="roleId" />
          <el-table-column label="ロール名" align="center" prop="roleName" />
-         <el-table-column label="寛容な性格" align="center" prop="roleKey" />
+         <el-table-column label="ロール" align="center" prop="roleKey" />
          <el-table-column label="作成時間" align="center" prop="createTime" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>

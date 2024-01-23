@@ -214,7 +214,7 @@ function handleQuery() {
 function handleGenTable(row) {
   const tbNames = row.tableName || tableNames.value;
   if (tbNames == "") {
-    proxy.$modal.msgError("请选择要生成する的数据");
+    proxy.$modal.msgError("请選択要生成する的数据");
     return;
   }
   if (row.genType === "1") {

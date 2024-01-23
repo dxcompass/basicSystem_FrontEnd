@@ -22,7 +22,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
       <el-row>
@@ -111,13 +111,13 @@ function handleQuery() {
   queryParams.pageNum = 1;
   getList();
 }
-/** 選ぶり戻しボタン操作 */
+/** 再読み込みボタン操作 */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
 }
 const emit = defineEmits(["ok"]);
-/** 选择認確かにユーザー操作 */
+/** 選択認確かにユーザー操作 */
 function handleSelectUser() {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");

@@ -46,7 +46,7 @@
                <span>{{ parseTime(scope.row.loginTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Delete" @click="handleForceLogout(scope.row)" v-hasPermi="['monitor:online:forceLogout']">力</el-button>
             </template>
@@ -82,17 +82,17 @@ function getList() {
     loading.value = false;
   });
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   pageNum.value = 1;
   getList();
 }
-/** 取り戻しボタン動作します */
+/** 取り戻しボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
 }
-/** 力ボタン動作します */
+/** 力ボタンアクション */
 function handleForceLogout(row) {
     proxy.$modal.confirm('電源名を確認するかどうか"' + row.userName + '"ユーザー?').then(function () {
   return forceLogout(row.tokenId);

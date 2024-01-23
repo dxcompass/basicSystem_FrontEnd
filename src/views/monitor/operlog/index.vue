@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="動作しますアドレス" prop="operIp">
+         <el-form-item label="アクションアドレス" prop="operIp">
             <el-input
                v-model="queryParams.operIp"
-               placeholder="動作しますアドレスを入力してください"
+               placeholder="アクションアドレスを入力してください"
                clearable
                style="width: 240px;"
                @keyup.enter="handleQuery"
@@ -31,7 +31,7 @@
          <el-form-item label="タイプ" prop="businessType">
             <el-select
                v-model="queryParams.businessType"
-               placeholder="動作しますタイプ"
+               placeholder="アクションタイプ"
                clearable
                style="width: 240px"
             >
@@ -46,7 +46,7 @@
          <el-form-item label="ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="動作しますステータス"
+               placeholder="アクションステータス"
                clearable
                style="width: 240px"
             >
@@ -111,19 +111,19 @@
          <el-table-column type="selection" width="50" align="center" />
          <el-table-column label="ログ番号" align="center" prop="operId" />
          <el-table-column label="システムモジュール" align="center" prop="title" :show-overflow-tooltip="true" />
-         <el-table-column label="動作しますタイプ" align="center" prop="businessType">
+         <el-table-column label="アクションタイプ" align="center" prop="businessType">
             <template #default="scope">
                <dict-tag :options="sys_oper_type" :value="scope.row.businessType" />
             </template>
          </el-table-column>
          <el-table-column label="オペレーター" align="center" width="110" prop="operName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
-         <el-table-column label="動作しますアドレス" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
-         <el-table-column label="動作しますステータス" align="center" prop="status">
+         <el-table-column label="アクションアドレス" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
+         <el-table-column label="アクションステータス" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="動作します日" align="center" prop="operTime" width="180" sortable="custom" :sort-orders="['descending', 'ascending']">
+         <el-table-column label="アクション日" align="center" prop="operTime" width="180" sortable="custom" :sort-orders="['descending', 'ascending']">
             <template #default="scope">
                <span>{{ parseTime(scope.row.operTime) }}</span>
             </template>
@@ -133,7 +133,7 @@
                <span>{{ scope.row.costTime }}ミリ秒</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="View" @click="handleView(scope.row, scope.index)" v-hasPermi="['monitor:operlog:query']">詳細</el-button>
             </template>
@@ -148,12 +148,12 @@
          @pagination="getList"
       />
 
-      <!-- 動作します日志詳細 -->
-      <el-dialog title="動作します日志詳細" v-model="open" width="800px" append-to-body>
+      <!-- アクション日志詳細 -->
+      <el-dialog title="アクション日志詳細" v-model="open" width="800px" append-to-body>
          <el-form :model="form" label-width="100px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="動作します模块：">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
+                  <el-form-item label="アクション模块：">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
                   <el-form-item
                     label="ログイン情報："
                   >{{ form.operName }} / {{ form.operIp }} / {{ form.operLocation }}</el-form-item>
@@ -163,7 +163,7 @@
                   <el-form-item label="リクエスト方法：">{{ form.requestMethod }}</el-form-item>
                </el-col>
                <el-col :span="24">
-                  <el-form-item label="動作します方法：">{{ form.method }}</el-form-item>
+                  <el-form-item label="アクション方法：">{{ form.method }}</el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="リクエストパラメーター：">{{ form.operParam }}</el-form-item>
@@ -172,7 +172,7 @@
                   <el-form-item label="パラメーターを返します：">{{ form.jsonResult }}</el-form-item>
                </el-col>
                <el-col :span="8">
-                  <el-form-item label="動作しますステータス：">
+                  <el-form-item label="アクションステータス：">
                      <div v-if="form.status === 0">普通</div>
                      <div v-else-if="form.status === 1">失敗</div>
                   </el-form-item>
@@ -239,16 +239,16 @@ function getList() {
     loading.value = false;
   });
 }
-/** 動作します日志タイプ字典翻译 */
+/** アクション日志タイプ字典翻译 */
 function typeFormat(row, column) {
   return proxy.selectDictLabel(sys_oper_type.value, row.businessType);
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 取り戻しボタン動作します */
+/** 取り戻しボタンアクション */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
@@ -266,12 +266,12 @@ function handleSortChange(column, prop, order) {
   queryParams.value.isAsc = column.order;
   getList();
 }
-/** 詳細ボタン動作します */
+/** 詳細ボタンアクション */
 function handleView(row) {
   open.value = true;
   form.value = row;
 }
-/**  削除ボタン動作します */
+/**  削除ボタンアクション */
 function handleDelete(row) {
   const operIds = row.operId || ids.value;
   proxy.$modal.confirm('確認するかどうか 削除ログ番号为"' + operIds + '"データ項目?').then(function () {
@@ -281,16 +281,16 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess(" 削除成功");
   }).catch(() => {});
 }
-/** 空のボタン動作します */
+/** 空のボタンアクション */
 function handleClean() {
-  proxy.$modal.confirm("確認するかどうか空の所有動作します日志数据项?").then(function () {
+  proxy.$modal.confirm("確認するかどうか空の所有アクション日志数据项?").then(function () {
     return cleanOperlog();
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("空の成功");
   }).catch(() => {});
 }
-/** 輸出ボタン動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("monitor/operlog/export",{
     ...queryParams.value,

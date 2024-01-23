@@ -13,7 +13,7 @@
          <el-form-item label="タスクグループ名" prop="jobGroup">
             <el-select
                v-model="queryParams.jobGroup"
-               placeholder="请选择タスクグループ名"
+               placeholder="请選択タスクグループ名"
                clearable
                style="width: 240px"
             >
@@ -28,7 +28,7 @@
          <el-form-item label="実行ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="请选择実行ステータス"
+               placeholder="请選択実行ステータス"
                clearable
                style="width: 240px"
             >
@@ -117,7 +117,7 @@
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="View" @click="handleView(scope.row)" v-hasPermi="['monitor:job:query']">詳細</el-button>
             </template>
@@ -214,12 +214,12 @@ function handleClose() {
   const obj = { path: "/monitor/job" };
   proxy.$tab.closeOpenPage(obj);
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 取り戻しボタン動作します */
+/** 取り戻しボタンアクション */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
@@ -230,12 +230,12 @@ function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.jobLogId);
   multiple.value = !selection.length;
 }
-/** 詳細ボタン動作します */
+/** 詳細ボタンアクション */
 function handleView(row) {
   open.value = true;
   form.value = row;
 }
-/**  削除ボタン動作します */
+/**  削除ボタンアクション */
 function handleDelete(row) {
   proxy.$modal.confirm('確認するかどうか 削除调度ログ番号为"' + ids.value + '"データ項目?').then(function () {
     return delJobLog(ids.value);
@@ -244,7 +244,7 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess(" 削除成功");
   }).catch(() => {});
 }
-/** 空のボタン動作します */
+/** 空のボタンアクション */
 function handleClean() {
   proxy.$modal.confirm("確認するかどうか空の所有调度日志数据项?").then(function () {
     return cleanJobLog();
@@ -253,7 +253,7 @@ function handleClean() {
     proxy.$modal.msgSuccess("空の成功");
   }).catch(() => {});
 }
-/** 出力ボタン動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("monitor/jobLog/export", {
     ...queryParams.value,

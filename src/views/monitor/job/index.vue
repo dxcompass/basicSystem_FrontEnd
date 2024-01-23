@@ -32,7 +32,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -64,7 +64,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['monitor:job:remove']"
-            >取り除く去</el-button>
+            >削除</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -108,12 +108,12 @@
                ></el-switch>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" width="200" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" width="200" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-tooltip content="改訂" placement="top">
                   <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['monitor:job:edit']"></el-button>
                </el-tooltip>
-               <el-tooltip content="取り除く去" placement="top">
+               <el-tooltip content="削除" placement="top">
                   <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['monitor:job:remove']"></el-button>
                </el-tooltip>
                <el-tooltip content="1回実行します" placement="top">
@@ -340,7 +340,7 @@ function cancel() {
   open.value = false;
   reset();
 }
-/** 表单選ぶり戻し */
+/** 表单再読み込み */
 function reset() {
   form.value = {
     jobId: undefined,
@@ -354,12 +354,12 @@ function reset() {
   };
   proxy.resetForm("jobRef");
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 選ぶり戻しボタン動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
@@ -370,7 +370,7 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-// 更多動作します触发
+// 更多アクション触发
 function handleCommand(command, row) {
   switch (command) {
     case "handleRun":
@@ -412,7 +412,7 @@ function handleView(row) {
     openView.value = true;
   });
 }
-/** cronパフォーマンスボタン動作します */
+/** cronパフォーマンスボタンアクション */
 function handleShowCron() {
   expression.value = form.value.cronExpression;
   openCron.value = true;
@@ -426,13 +426,13 @@ function handleJobLog(row) {
   const jobId = row.jobId || 0;
   router.push('/monitor/job-log/index/' + jobId)
 }
-/** 増加ボタン動作します */
+/** 増加ボタンアクション */
 function handleAdd() {
   reset();
   open.value = true;
   title.value = "タスクを追加します";
 }
-/** 改訂ボタン動作します */
+/** 改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   const jobId = row.jobId || ids.value;
@@ -462,17 +462,17 @@ function submitForm() {
     }
   });
 }
-/** 取り除く去ボタン動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const jobIds = row.jobId || ids.value;
-  proxy.$modal.confirm('是否確かに认取り除く去確かに时タスク番号为"' + jobIds + '"データ項目?').then(function () {
+  proxy.$modal.confirm('是否確かに认削除確かに时タスク番号为"' + jobIds + '"データ項目?').then(function () {
     return delJob(jobIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取り除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
-/** 出力ボタン動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("monitor/job/export", {
     ...queryParams.value,

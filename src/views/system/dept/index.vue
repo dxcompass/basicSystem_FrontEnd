@@ -22,7 +22,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -67,11 +67,11 @@
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:dept:edit']">改訂</el-button>
                <el-button link type="primary" icon="Plus" @click="handleAdd(scope.row)" v-hasPermi="['system:dept:add']">増加</el-button>
-               <el-button v-if="scope.row.parentId != 0" link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dept:remove']">取り除く去</el-button>
+               <el-button v-if="scope.row.parentId != 0" link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:dept:remove']">削除</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -87,7 +87,7 @@
                         :data="deptOptions"
                         :props="{ value: 'deptId', label: 'deptName', children: 'children' }"
                         value-key="deptId"
-                        placeholder="选择より高いオフィス"
+                        placeholder="選択より高いオフィス"
                         check-strictly
                      />
                   </el-form-item>
@@ -185,7 +185,7 @@ function cancel() {
   open.value = false;
   reset();
 }
-/** 表单選ぶり戻し */
+/** 表单再読み込み */
 function reset() {
   form.value = {
     deptId: undefined,
@@ -199,16 +199,16 @@ function reset() {
   };
   proxy.resetForm("deptRef");
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   getList();
 }
-/** 選ぶり戻しボタン動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
 }
-/** 増加ボタン動作します */
+/** 増加ボタンアクション */
 function handleAdd(row) {
   reset();
   listDept().then(response => {
@@ -220,7 +220,7 @@ function handleAdd(row) {
   open.value = true;
   title.value = "部門の追加";
 }
-/** 拡大する/折り畳み動作します */
+/** 拡大する/折り畳みアクション */
 function toggleExpandAll() {
   refreshTable.value = false;
   isExpandAll.value = !isExpandAll.value;
@@ -228,7 +228,7 @@ function toggleExpandAll() {
     refreshTable.value = true;
   });
 }
-/** 改訂ボタン動作します */
+/** 改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   listDeptExcludeChild(row.deptId).then(response => {
@@ -260,13 +260,13 @@ function submitForm() {
     }
   });
 }
-/** 取り除く去ボタン動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
-  proxy.$modal.confirm('是否確かに认取り除く去名称为"' + row.deptName + '"データ項目?').then(function() {
+  proxy.$modal.confirm('是否確かに认削除名称为"' + row.deptName + '"データ項目?').then(function() {
     return delDept(row.deptId);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取り除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
 

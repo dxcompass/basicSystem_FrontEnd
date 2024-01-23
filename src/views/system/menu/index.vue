@@ -94,7 +94,7 @@
                          :data="menuOptions"
                          :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
                          value-key="menuId"
-                         placeholder="选择上级菜单"
+                         placeholder="選択上级菜单"
                          check-strictly
                       />
                    </el-form-item>
@@ -104,7 +104,7 @@
                       <el-radio-group v-model="form.menuType">
                          <el-radio label="M">目录</el-radio>
                          <el-radio label="C">菜单</el-radio>
-                         <el-radio label="F">按钮</el-radio>
+                         <el-radio label="F">ボタン</el-radio>
                       </el-radio-group>
                    </el-form-item>
                 </el-col>
@@ -116,7 +116,7 @@
                          trigger="click"
                       >
                          <template #reference>
-                            <el-input v-model="form.icon" placeholder="点击选择图标" @blur="showSelectIcon" readonly>
+                            <el-input v-model="form.icon" placeholder="点击選択图标" @blur="showSelectIcon" readonly>
                                <template #prefix>
                                   <svg-icon
                                      v-if="form.icon"
@@ -146,7 +146,7 @@
                    <el-form-item>
                       <template #label>
                          <span>
-                            <el-tooltip content="选择是外链则路由地址需要以`http(s)://`开头" placement="top">
+                            <el-tooltip content="選択是外链则路由地址需要以`http(s)://`开头" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>是否外链
                          </span>
@@ -213,7 +213,7 @@
                    <el-form-item>
                       <template #label>
                          <span>
-                            <el-tooltip content="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致" placement="top">
+                            <el-tooltip content="選択是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>
                             是否缓存
@@ -229,7 +229,7 @@
                    <el-form-item>
                       <template #label>
                          <span>
-                            <el-tooltip content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问" placement="top">
+                            <el-tooltip content="選択隐藏则路由将不会出现在侧边栏，但仍然可以访问" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>
                             显示状态
@@ -248,7 +248,7 @@
                    <el-form-item>
                       <template #label>
                          <span>
-                            <el-tooltip content="选择停用则路由将不会出现在侧边栏，也不能被访问" placement="top">
+                            <el-tooltip content="選択停用则路由将不会出现在侧边栏，也不能被访问" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>
                             菜单状态
@@ -325,7 +325,7 @@
      menuOptions.value.push(menu);
    });
  }
- /** 取消按钮 */
+ /** 取消ボタン */
  function cancel() {
    open.value = false;
    reset();
@@ -350,20 +350,20 @@
  function showSelectIcon() {
    iconSelectRef.value.reset();
  }
- /** 选择图标 */
+ /** 選択图标 */
  function selected(name) {
    form.value.icon = name;
  }
- /** 搜索按钮操作 */
+ /** 搜索ボタン操作 */
  function handleQuery() {
    getList();
  }
- /** 重置按钮操作 */
+ /** 重置ボタン操作 */
  function resetQuery() {
    proxy.resetForm("queryRef");
    handleQuery();
  }
- /** 新增按钮操作 */
+ /** 新增ボタン操作 */
  function handleAdd(row) {
    reset();
    getTreeselect();
@@ -383,7 +383,7 @@
      refreshTable.value = true;
    });
  }
- /** 修改按钮操作 */
+ /** 修改ボタン操作 */
  async function handleUpdate(row) {
    reset();
    await getTreeselect();
@@ -393,7 +393,7 @@
      title.value = "修改菜单";
    });
  }
- /** 提交按钮 */
+ /** 提交ボタン */
  function submitForm() {
    proxy.$refs["menuRef"].validate(valid => {
      if (valid) {
@@ -413,7 +413,7 @@
      }
    });
  }
- /** 删除按钮操作 */
+ /** 删除ボタン操作 */
  function handleDelete(row) {
    proxy.$modal.confirm('是否确认删除名称为"' + row.menuName + '"的数据项?').then(function() {
      return delMenu(row.menuId);

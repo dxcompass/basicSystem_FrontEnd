@@ -19,10 +19,10 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="州" prop="status">
+         <el-form-item label="ステータス" prop="status">
             <el-select
                v-model="queryParams.status"
-               placeholder="角色州"
+               placeholder="角色ステータス"
                clearable
                style="width: 240px"
             >
@@ -46,7 +46,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
       <el-row :gutter="10" class="mb8">
@@ -77,7 +77,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['system:role:remove']"
-            >選ぶり除く去</el-button>
+            >削除</el-button>
          </el-col>
          <el-col :span="1.5">
             <el-button
@@ -86,7 +86,7 @@
                icon="Download"
                @click="handleExport"
                v-hasPermi="['system:role:export']"
-            >輸出</el-button>
+            >出力</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
@@ -94,11 +94,11 @@
       <!-- テーブルデータ -->
       <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="文字番号" prop="roleId" width="120" />
+         <el-table-column label="番号" prop="roleId" width="120" />
          <el-table-column label="ロール名" prop="roleName" :show-overflow-tooltip="true" width="150" />
-         <el-table-column label="寛容な性格" prop="roleKey" :show-overflow-tooltip="true" width="150" />
+         <el-table-column label="ロール" prop="roleKey" :show-overflow-tooltip="true" width="150" />
          <el-table-column label="表示順" prop="roleSort" width="100" />
-         <el-table-column label="州" align="center" width="100">
+         <el-table-column label="ステータス" align="center" width="100">
             <template #default="scope">
                <el-switch
                   v-model="scope.row.status"
@@ -113,12 +113,12 @@
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
               <el-tooltip content="改訂" placement="top" v-if="scope.row.roleId !== 1">
                 <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:role:edit']"></el-button>
               </el-tooltip>
-              <el-tooltip content="選ぶり除く去" placement="top" v-if="scope.row.roleId !== 1">
+              <el-tooltip content="削除" placement="top" v-if="scope.row.roleId !== 1">
                 <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:role:remove']"></el-button>
               </el-tooltip>
               <el-tooltip content="データ許可" placement="top" v-if="scope.row.roleId !== 1">
@@ -148,18 +148,18 @@
             <el-form-item prop="roleKey">
                <template #label>
                   <span>
-                     <el-tooltip content="控制器中確かに义的寛容な性格，のように：@PreAuthorize(`@ss.hasRole('admin')`)" placement="top">
+                     <el-tooltip content="控制器中確かに义的ロール，のように：@PreAuthorize(`@ss.hasRole('admin')`)" placement="top">
                         <el-icon><question-filled /></el-icon>
                      </el-tooltip>
-                     寛容な性格
+                     ロール
                   </span>
                </template>
-               <el-input v-model="form.roleKey" placeholder="请输入寛容な性格" />
+               <el-input v-model="form.roleKey" placeholder="请输入ロール" />
             </el-form-item>
             <el-form-item label="ロールオーダー" prop="roleSort">
                <el-input-number v-model="form.roleSort" controls-position="right" :min="0" />
             </el-form-item>
-            <el-form-item label="州">
+            <el-form-item label="ステータス">
                <el-radio-group v-model="form.status">
                   <el-radio
                      v-for="dict in sys_normal_disable"
@@ -183,7 +183,7 @@
                   :props="{ label: 'label', children: 'children' }"
                ></el-tree>
             </el-form-item>
-            <el-form-item label="述べる">
+            <el-form-item label="備考">
                <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"></el-input>
             </el-form-item>
          </el-form>
@@ -201,7 +201,7 @@
             <el-form-item label="ロール名">
                <el-input v-model="form.roleName" :disabled="true" />
             </el-form-item>
-            <el-form-item label="寛容な性格">
+            <el-form-item label="ロール">
                <el-input v-model="form.roleKey" :disabled="true" />
             </el-form-item>
             <el-form-item label="範囲">
@@ -289,7 +289,7 @@ const data = reactive({
   },
   rules: {
     roleName: [{ required: true, message: "ロール名不能为空", trigger: "blur" }],
-    roleKey: [{ required: true, message: "寛容な性格不能为空", trigger: "blur" }],
+    roleKey: [{ required: true, message: "ロール不能为空", trigger: "blur" }],
     roleSort: [{ required: true, message: "ロールオーダー不能为空", trigger: "blur" }]
   },
 });
@@ -305,28 +305,28 @@ function getList() {
     loading.value = false;
   });
 }
-/** 検索按钮動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 選ぶり戻し按钮動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
-/** 選ぶり除く去按钮動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const roleIds = row.roleId || ids.value;
-  proxy.$modal.confirm('是否確かに认選ぶり除く去文字番号为"' + roleIds + '"データ項目?').then(function () {
+  proxy.$modal.confirm('是否確かに认削除番号为"' + roleIds + '"データ項目?').then(function () {
     return delRole(roleIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("選ぶり除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
-/** 輸出按钮動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("system/role/export", {
     ...queryParams.value,
@@ -338,7 +338,7 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 角色州改訂 */
+/** 角色ステータス改訂 */
 function handleStatusChange(row) {
   let text = row.status === "0" ? "開いてください" : "停止";
   proxy.$modal.confirm('確かに认要"' + text + '""' + row.roleName + '"キャラクターですか？?').then(function () {
@@ -349,7 +349,7 @@ function handleStatusChange(row) {
     row.status = row.status === "0" ? "1" : "0";
   });
 }
-/** 更多動作します */
+/** 更多アクション */
 function handleCommand(command, row) {
   switch (command) {
     case "handleDataScope":
@@ -381,7 +381,7 @@ function getDeptAllCheckedKeys() {
   checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
   return checkedKeys;
 }
-/** 選ぶり戻し増加的表单以及其他数据  */
+/** 再読み込み増加的表单以及其他数据  */
 function reset() {
   if (menuRef.value != undefined) {
     menuRef.value.setCheckedKeys([]);
@@ -508,18 +508,18 @@ function submitForm() {
     }
   });
 }
-/** 選ぶ選ぶり除く按钮 */
+/** 選ぶ選ぶり除くボタン */
 function cancel() {
   open.value = false;
   reset();
 }
-/** 选择角色範囲触发 */
+/** 選択角色範囲触发 */
 function dataScopeSelectChange(value) {
   if (value !== "2") {
     deptRef.value.setCheckedKeys([]);
   }
 }
-/** 分配データ許可動作します */
+/** 分配データ許可アクション */
 function handleDataScope(row) {
   reset();
   const deptTreeSelect = getDeptTree(row.roleId);
@@ -549,7 +549,7 @@ function submitDataScope() {
     });
   }
 }
-/** 選ぶ選ぶり除く按钮（データ許可）*/
+/** 選ぶ選ぶり除くボタン（データ許可）*/
 function cancelDataScope() {
   openDataScope.value = false;
   reset();

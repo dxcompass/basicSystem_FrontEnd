@@ -73,7 +73,7 @@
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="CircleClose" @click="cancelAuthUser(scope.row)" v-hasPermi="['system:role:remove']">承認をキャンセルします</el-button>
             </template>
@@ -128,12 +128,12 @@ function handleClose() {
   const obj = { path: "/system/role" };
   proxy.$tab.closeOpenPage(obj);
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.pageNum = 1;
   getList();
 }
-/** 取り戻しボタン動作します */
+/** 取り戻しボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
@@ -147,7 +147,7 @@ function handleSelectionChange(selection) {
 function openSelectUser() {
   proxy.$refs["selectRef"].show();
 }
-/** 承認をキャンセルしますボタン動作します */
+/** 承認をキャンセルしますボタンアクション */
 function cancelAuthUser(row) {
   proxy.$modal.confirm('ユーザーをキャンセルすることを確認してください"' + row.userName + '"キャラクターですか？？').then(function () {
     return authUserCancel({ userId: row.userId, roleId: queryParams.roleId });
@@ -156,7 +156,7 @@ function cancelAuthUser(row) {
     proxy.$modal.msgSuccess("承認をキャンセルします成功");
   }).catch(() => {});
 }
-/** バッチキャンセル許可ボタン動作します */
+/** バッチキャンセル許可ボタンアクション */
 function cancelAuthUserAll(row) {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");

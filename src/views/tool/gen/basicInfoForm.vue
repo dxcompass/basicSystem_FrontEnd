@@ -22,7 +22,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="24">
-        <el-form-item label="述べる" prop="remark">
+        <el-form-item label="備考" prop="remark">
           <el-input type="textarea" :rows="3" v-model="info.remark"></el-input>
         </el-form-item>
       </el-col>

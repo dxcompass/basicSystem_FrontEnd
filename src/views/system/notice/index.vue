@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
-         <el-form-item label="発表する" prop="noticeTitle">
+         <el-form-item label="お知らせ" prop="noticeTitle">
             <el-input
                v-model="queryParams.noticeTitle"
-               placeholder="発表するを入力してください"
+               placeholder="お知らせを入力してください"
                clearable
                style="width: 200px"
                @keyup.enter="handleQuery"
@@ -31,7 +31,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -63,7 +63,7 @@
                :disabled="multiple"
                @click="handleDelete"
                v-hasPermi="['system:notice:remove']"
-            >取り除く去</el-button>
+            >削除</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
@@ -72,7 +72,7 @@
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="シリアルナンバー" align="center" prop="noticeId" width="100" />
          <el-table-column
-            label="発表する"
+            label="お知らせ"
             align="center"
             prop="noticeTitle"
             :show-overflow-tooltip="true"
@@ -93,10 +93,10 @@
                <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="動作します" align="center" class-name="small-padding fixed-width">
+         <el-table-column label="アクション" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">改訂</el-button>
-               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']" >取り除く去</el-button>
+               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']" >削除</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -114,8 +114,8 @@
          <el-form ref="noticeRef" :model="form" :rules="rules" label-width="80px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="発表する" prop="noticeTitle">
-                     <el-input v-model="form.noticeTitle" placeholder="発表するを入力してください" />
+                  <el-form-item label="お知らせ" prop="noticeTitle">
+                     <el-input v-model="form.noticeTitle" placeholder="お知らせを入力してください" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -184,7 +184,7 @@ const data = reactive({
     status: undefined
   },
   rules: {
-    noticeTitle: [{ required: true, message: "発表する不能为空", trigger: "blur" }],
+    noticeTitle: [{ required: true, message: "お知らせ不能为空", trigger: "blur" }],
     noticeType: [{ required: true, message: "公告タイプ不能为空", trigger: "change" }]
   },
 });
@@ -205,7 +205,7 @@ function cancel() {
   open.value = false;
   reset();
 }
-/** 表单選ぶり戻し */
+/** 表单再読み込み */
 function reset() {
   form.value = {
     noticeId: undefined,
@@ -216,12 +216,12 @@ function reset() {
   };
   proxy.resetForm("noticeRef");
 }
-/** 検索ボタン動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 選ぶり戻しボタン動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
@@ -232,13 +232,13 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
-/** 増加ボタン動作します */
+/** 増加ボタンアクション */
 function handleAdd() {
   reset();
   open.value = true;
   title.value = "発表を追加します";
 }
-/**改訂ボタン動作します */
+/**改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   const noticeId = row.noticeId || ids.value;
@@ -268,14 +268,14 @@ function submitForm() {
     }
   });
 }
-/** 取り除く去ボタン動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const noticeIds = row.noticeId || ids.value
-  proxy.$modal.confirm('是否確かに认取り除く去公告编号为"' + noticeIds + '"データ項目？').then(function() {
+  proxy.$modal.confirm('是否確かに认削除公告编号为"' + noticeIds + '"データ項目？').then(function() {
     return delNotice(noticeIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("取り除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 }
 

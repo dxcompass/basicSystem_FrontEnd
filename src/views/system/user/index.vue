@@ -47,10 +47,10 @@
                      @keyup.enter="handleQuery"
                   />
                </el-form-item>
-               <el-form-item label="州" prop="status">
+               <el-form-item label="ステータス" prop="status">
                   <el-select
                      v-model="queryParams.status"
-                     placeholder="用户州"
+                     placeholder="用户ステータス"
                      clearable
                      style="width: 240px"
                   >
@@ -74,7 +74,7 @@
                </el-form-item>
                <el-form-item>
                   <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-                  <el-button icon="Refresh" @click="resetQuery">選ぶり戻し</el-button>
+                  <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
                </el-form-item>
             </el-form>
 
@@ -106,7 +106,7 @@
                      :disabled="multiple"
                      @click="handleDelete"
                      v-hasPermi="['system:user:remove']"
-                  >選ぶり除く去</el-button>
+                  >削除</el-button>
                </el-col>
                <el-col :span="1.5">
                   <el-button
@@ -124,7 +124,7 @@
                      icon="Download"
                      @click="handleExport"
                      v-hasPermi="['system:user:export']"
-                  >輸出</el-button>
+                  >出力</el-button>
                </el-col>
                <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
             </el-row>
@@ -136,7 +136,7 @@
                <el-table-column label="ユーザーのニックネーム" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
                <el-table-column label="部門" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
                <el-table-column label="電話番号" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-               <el-table-column label="州" align="center" key="status" v-if="columns[5].visible">
+               <el-table-column label="ステータス" align="center" key="status" v-if="columns[5].visible">
                   <template #default="scope">
                      <el-switch
                         v-model="scope.row.status"
@@ -151,15 +151,15 @@
                      <span>{{ parseTime(scope.row.createTime) }}</span>
                   </template>
                </el-table-column>
-               <el-table-column label="動作します" align="center" width="150" class-name="small-padding fixed-width">
+               <el-table-column label="アクション" align="center" width="150" class-name="small-padding fixed-width">
                   <template #default="scope">
                      <el-tooltip content="改訂" placement="top" v-if="scope.row.userId !== 1">
                         <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:user:edit']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="選ぶり除く去" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="削除" placement="top" v-if="scope.row.userId !== 1">
                         <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:user:remove']"></el-button>
                      </el-tooltip>
-                     <el-tooltip content="選ぶり戻し密码" placement="top" v-if="scope.row.userId !== 1">
+                     <el-tooltip content="再読み込み密码" placement="top" v-if="scope.row.userId !== 1">
                          <el-button link type="primary" icon="Key" @click="handleResetPwd(scope.row)" v-hasPermi="['system:user:resetPwd']"></el-button>
                      </el-tooltip>
                      <el-tooltip content="役割の割り当て" placement="top" v-if="scope.row.userId !== 1">
@@ -238,7 +238,7 @@
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="州">
+                  <el-form-item label="ステータス">
                      <el-radio-group v-model="form.status">
                         <el-radio
                            v-for="dict in sys_normal_disable"
@@ -279,7 +279,7 @@
             </el-row>
             <el-row>
                <el-col :span="24">
-                  <el-form-item label="述べる">
+                  <el-form-item label="備考">
                      <el-input v-model="form.remark" type="textarea" placeholder="コンテンツを入力してください"></el-input>
                   </el-form-item>
                </el-col>
@@ -374,7 +374,7 @@ const columns = ref([
   { key: 2, label: `ユーザーのニックネーム`, visible: true },
   { key: 3, label: `部門`, visible: true },
   { key: 4, label: `電話番号`, visible: true },
-  { key: 5, label: `州`, visible: true },
+  { key: 5, label: `ステータス`, visible: true },
   { key: 6, label: `作成時間`, visible: true }
 ]);
 
@@ -428,12 +428,12 @@ function handleNodeClick(data) {
   queryParams.value.deptId = data.id;
   handleQuery();
 };
-/** 検索按钮動作します */
+/** 検索ボタンアクション */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 };
-/** 選ぶり戻し按钮動作します */
+/** 再読み込みボタンアクション */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
@@ -441,23 +441,23 @@ function resetQuery() {
   proxy.$refs.deptTreeRef.setCurrentKey(null);
   handleQuery();
 };
-/** 選ぶり除く去按钮動作します */
+/** 削除ボタンアクション */
 function handleDelete(row) {
   const userIds = row.userId || ids.value;
-  proxy.$modal.confirm('是否確かに认選ぶり除く去ユーザーID为"' + userIds + '"データ項目？').then(function () {
+  proxy.$modal.confirm('是否確かに认削除ユーザーID为"' + userIds + '"データ項目？').then(function () {
     return delUser(userIds);
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("選ぶり除く去成功");
+    proxy.$modal.msgSuccess("削除成功");
   }).catch(() => {});
 };
-/** 輸出按钮動作します */
+/** 出力ボタンアクション */
 function handleExport() {
   proxy.download("system/user/export", {
     ...queryParams.value,
   },`user_${new Date().getTime()}.xlsx`);
 };
-/** 用户州改訂  */
+/** 用户ステータス改訂  */
 function handleStatusChange(row) {
   let text = row.status === "0" ? "開いてください" : "停止";
   proxy.$modal.confirm('確かに认要"' + text + '""' + row.userName + '"ユーザー？?').then(function () {
@@ -468,7 +468,7 @@ function handleStatusChange(row) {
     row.status = row.status === "0" ? "1" : "0";
   });
 };
-/** 更多動作します */
+/** 更多アクション */
 function handleCommand(command, row) {
   switch (command) {
     case "handleResetPwd":
@@ -486,7 +486,7 @@ function handleAuthRole(row) {
   const userId = row.userId;
   router.push("/system/user-auth/role/" + userId);
 };
-/** 選ぶり戻し密码按钮動作します */
+/** 再読み込み密码ボタンアクション */
 function handleResetPwd(row) {
   proxy.$prompt('入ってください"' + row.userName + '"新しいパスワード', "ヒント", {
     confirmButtonText: "確かに確かに",
@@ -506,12 +506,12 @@ function handleSelectionChange(selection) {
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 };
-/** 輸入按钮動作します */
+/** 輸入ボタンアクション */
 function handleImport() {
   upload.title = "用户輸入";
   upload.open = true;
 };
-/** テンプレートをダウンロードします動作します */
+/** テンプレートをダウンロードしますアクション */
 function importTemplate() {
   proxy.download("system/user/importTemplate", {
   }, `user_template_${new Date().getTime()}.xlsx`);
@@ -532,7 +532,7 @@ const handleFileSuccess = (response, file, fileList) => {
 function submitFileForm() {
   proxy.$refs["uploadRef"].submit();
 };
-/** 選ぶり戻し動作します表单 */
+/** 再読み込みアクション表单 */
 function reset() {
   form.value = {
     userId: undefined,
@@ -550,12 +550,12 @@ function reset() {
   };
   proxy.resetForm("userRef");
 };
-/** 選ぶ選ぶり除く按钮 */
+/** 選ぶ選ぶり除くボタン */
 function cancel() {
   open.value = false;
   reset();
 };
-/** 増加按钮動作します */
+/** 増加ボタンアクション */
 function handleAdd() {
   reset();
   getUser().then(response => {
@@ -566,7 +566,7 @@ function handleAdd() {
     form.value.password = initPassword.value;
   });
 };
-/** 改訂按钮動作します */
+/** 改訂ボタンアクション */
 function handleUpdate(row) {
   reset();
   const userId = row.userId || ids.value;
