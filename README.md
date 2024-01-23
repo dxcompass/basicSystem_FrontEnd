@@ -1,5 +1,5 @@
  
-<h4 align="center">基于SpringBoot+Vue3前后端分离的Java快速开发框架</h4>
+<h4 align="center">AIOCR front </h4>
  
 
 ## 平台简介
@@ -12,8 +12,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/mengjunqing/basicSystem_FrontEnd.git
-
+git clone  
 # 进入项目目录
 cd RuoYi-Vue3
 
