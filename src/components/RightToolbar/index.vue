@@ -45,7 +45,7 @@ const props = defineProps({
   columns: {
     type: Array,
   },
-  /* 是否見せる检索图标 */
+  /* 是否見せる检索アイコン */
   search: {
     type: Boolean,
     default: true,

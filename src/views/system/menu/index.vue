@@ -1,17 +1,17 @@
 <template>
     <div class="app-container">
        <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
-          <el-form-item label="菜单名称" prop="menuName">
+          <el-form-item label="メニュー名" prop="menuName">
              <el-input
                 v-model="queryParams.menuName"
-                placeholder="请输入菜单名称"
+                placeholder="请输入メニュー名"
                 clearable
                 style="width: 200px"
                 @keyup.enter="handleQuery"
              />
           </el-form-item>
-          <el-form-item label="状态" prop="status">
-             <el-select v-model="queryParams.status" placeholder="菜单状态" clearable style="width: 200px">
+          <el-form-item label="ステータス" prop="status">
+             <el-select v-model="queryParams.status" placeholder="菜单ステータス" clearable style="width: 200px">
                 <el-option
                    v-for="dict in sys_normal_disable"
                    :key="dict.value"
@@ -55,21 +55,21 @@
           :default-expand-all="isExpandAll"
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
        >
-          <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
-          <el-table-column prop="icon" label="图标" align="center" width="100">
+          <el-table-column prop="menuName" label="メニュー名" :show-overflow-tooltip="true" width="160"></el-table-column>
+          <el-table-column prop="icon" label="アイコン" align="center" width="100">
              <template #default="scope">
                 <svg-icon :icon-class="scope.row.icon" />
              </template>
           </el-table-column>
-          <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
+          <el-table-column prop="orderNum" label="ソート" width="60"></el-table-column>
           <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-          <el-table-column prop="status" label="状态" width="80">
+          <el-table-column prop="status" label="ステータス" width="80">
              <template #default="scope">
                 <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
              </template>
           </el-table-column>
-          <el-table-column label="创建时间" align="center" width="160" prop="createTime">
+          <el-table-column label="作成日時" align="center" width="160" prop="createTime">
              <template #default="scope">
                 <span>{{ parseTime(scope.row.createTime) }}</span>
              </template>
@@ -109,14 +109,14 @@
                    </el-form-item>
                 </el-col>
                 <el-col :span="24" v-if="form.menuType != 'F'">
-                   <el-form-item label="菜单图标" prop="icon">
+                   <el-form-item label="菜单アイコン" prop="icon">
                       <el-popover
                          placement="bottom-start"
                          :width="540"
                          trigger="click"
                       >
                          <template #reference>
-                            <el-input v-model="form.icon" placeholder="点击選択图标" @blur="showSelectIcon" readonly>
+                            <el-input v-model="form.icon" placeholder="点击選択アイコン" @blur="showSelectIcon" readonly>
                                <template #prefix>
                                   <svg-icon
                                      v-if="form.icon"
@@ -133,12 +133,12 @@
                    </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                   <el-form-item label="菜单名称" prop="menuName">
-                      <el-input v-model="form.menuName" placeholder="请输入菜单名称" />
+                   <el-form-item label="メニュー名" prop="menuName">
+                      <el-input v-model="form.menuName" placeholder="请输入メニュー名" />
                    </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                   <el-form-item label="显示排序" prop="orderNum">
+                   <el-form-item label="显示ソート" prop="orderNum">
                       <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
                    </el-form-item>
                 </el-col>
@@ -232,7 +232,7 @@
                             <el-tooltip content="選択隐藏则路由将不会出现在侧边栏，但仍然可以访问" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>
-                            显示状态
+                            显示ステータス
                          </span>
                       </template>
                       <el-radio-group v-model="form.visible">
@@ -251,7 +251,7 @@
                             <el-tooltip content="選択停用则路由将不会出现在侧边栏，也不能被访问" placement="top">
                                <el-icon><question-filled /></el-icon>
                             </el-tooltip>
-                            菜单状态
+                            菜单ステータス
                          </span>
                       </template>
                       <el-radio-group v-model="form.status">
@@ -300,7 +300,7 @@
      visible: undefined
    },
    rules: {
-     menuName: [{ required: true, message: "菜单名称不能为空", trigger: "blur" }],
+     menuName: [{ required: true, message: "メニュー名不能为空", trigger: "blur" }],
      orderNum: [{ required: true, message: "菜单顺序不能为空", trigger: "blur" }],
      path: [{ required: true, message: "路由地址不能为空", trigger: "blur" }]
    },
@@ -346,11 +346,11 @@
    };
    proxy.resetForm("menuRef");
  }
- /** 展示下拉图标 */
+ /** 展示下拉アイコン */
  function showSelectIcon() {
    iconSelectRef.value.reset();
  }
- /** 選択图标 */
+ /** 選択アイコン */
  function selected(name) {
    form.value.icon = name;
  }
