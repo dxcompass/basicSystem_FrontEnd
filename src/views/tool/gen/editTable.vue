@@ -99,7 +99,7 @@
           </el-table-column>
           <el-table-column label="字典タイプ" min-width="12%">
             <template #default="scope">
-              <el-select v-model="scope.row.dictType" clearable filterable placeholder="選んでください">
+              <el-select v-model="scope.row.dictType" clearable filterable placeholder="を選んでください">
                 <el-option
                   v-for="dict in dictOptions"
                   :key="dict.dictType"

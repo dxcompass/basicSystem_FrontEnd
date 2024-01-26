@@ -1,6 +1,6 @@
 <template>
    <div class="app-container">
-      <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="160px">
          <el-form-item label="ログインIP" prop="ipaddr">
             <el-input
                v-model="queryParams.ipaddr"
@@ -47,7 +47,7 @@
          </el-form-item>
          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">検索</el-button>
-            <el-button icon="Refresh" @click="resetQuery">取り戻し</el-button>
+            <el-button icon="Refresh" @click="resetQuery">再読み込み</el-button>
          </el-form-item>
       </el-form>
 
@@ -166,7 +166,7 @@ function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
 }
-/** 取り戻しボタン操作 */
+/** 再読み込みボタン操作 */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");

@@ -22,7 +22,7 @@
                         <div class="pull-right">{{ state.user.phonenumber }}</div>
                      </li>
                      <li class="list-group-item">
-                        <svg-icon icon-class="email" />ユーザーメールボックス
+                        <svg-icon icon-class="email" />メール
                         <div class="pull-right">{{ state.user.email }}</div>
                      </li>
                      <li class="list-group-item">
@@ -30,7 +30,7 @@
                         <div class="pull-right" v-if="state.user.dept">{{ state.user.dept.deptName }} / {{ state.postGroup }}</div>
                      </li>
                      <li class="list-group-item">
-                        <svg-icon icon-class="peoples" />に属します
+                        <svg-icon icon-class="peoples" />所属
                         <div class="pull-right">{{ state.roleGroup }}</div>
                      </li>
                      <li class="list-group-item">

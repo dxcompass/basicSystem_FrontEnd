@@ -208,7 +208,7 @@ function expressionChange() {
                     }
                 } else if (dayRule.value === 'assWeek') {
                     // あなたが指定されている場合、週の週
-                    // 毎月取得します1数字は周jiに属します
+                    // 毎月取得します1数字は周ji所属
                     let thisWeek = formatDate(new Date(YY + '-' + MM + '-' + DD + ' 00:00:00'), 'week');
                     if (dayRuleSup.value[1] >= thisWeek) {
                         DD = (dayRuleSup.value[0] - 1) * 7 + dayRuleSup.value[1] - thisWeek + 1;

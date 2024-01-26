@@ -78,7 +78,7 @@
 
       <!-- ダイアログボックスを追加または放棄します -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-         <el-form ref="deptRef" :model="form" :rules="rules" label-width="80px">
+         <el-form ref="deptRef" :model="form" :rules="rules" label-width="160px">
             <el-row>
                <el-col :span="24" v-if="form.parentId !== 0">
                   <el-form-item label="より高いオフィス" prop="parentId">
@@ -132,8 +132,8 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
-               <el-button @click="cancel">選ぶ 取り除く</el-button>
+               <el-button type="primary" @click="submitForm">確認</el-button>
+               <el-button @click="cancel">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>

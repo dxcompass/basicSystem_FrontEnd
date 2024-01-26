@@ -1,6 +1,6 @@
 <template>
-   <el-form ref="userRef" :model="form" :rules="rules" label-width="80px">
-      <el-form-item label="ユーザーのニックネーム" prop="nickName">
+   <el-form ref="userRef" :model="form" :rules="rules" label-width="160px">
+      <el-form-item label="ニックネーム" prop="nickName">
          <el-input v-model="form.nickName" maxlength="30" />
       </el-form-item>
       <el-form-item label="電話番号" prop="phonenumber">
@@ -35,7 +35,7 @@ const { proxy } = getCurrentInstance();
 
 const form = ref({});
 const rules = ref({
-  nickName: [{ required: true, message: "ユーザーのニックネーム不能为空", trigger: "blur" }],
+  nickName: [{ required: true, message: "ニックネーム不能为空", trigger: "blur" }],
   email: [{ required: true, message: "郵便アドレスを空にすることはできません", trigger: "blur" }, { type: "email", message: "正しい郵便住所", trigger: ["blur", "changeを入力してください"] }],
   phonenumber: [{ required: true, message: "電話番号を空にすることはできません", trigger: "blur" }, { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正しい電話番号", trigger: "blurを入力してください" }],
 });

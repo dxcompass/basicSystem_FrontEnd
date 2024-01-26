@@ -28,11 +28,11 @@
          </el-col>
          <!--ユーザーデータ-->
          <el-col :span="20" :xs="24">
-            <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+            <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="160px">
                <el-form-item label="ユーザー名" prop="userName">
                   <el-input
                      v-model="queryParams.userName"
-                     placeholder="入ってくださいユーザー名"
+                     placeholder="ユーザー名を入力してください"
                      clearable
                      style="width: 240px"
                      @keyup.enter="handleQuery"
@@ -41,7 +41,7 @@
                <el-form-item label="電話番号" prop="phonenumber">
                   <el-input
                      v-model="queryParams.phonenumber"
-                     placeholder="入ってください電話番号"
+                     placeholder="電話番号を入力してください"
                      clearable
                      style="width: 240px"
                      @keyup.enter="handleQuery"
@@ -133,7 +133,7 @@
                <el-table-column type="selection" width="50" align="center" />
                <el-table-column label="ユーザーID" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
                <el-table-column label="ユーザー名" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-               <el-table-column label="ユーザーのニックネーム" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+               <el-table-column label="ニックネーム" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
                <el-table-column label="部門" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
                <el-table-column label="電話番号" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
                <el-table-column label="ステータス" align="center" key="status" v-if="columns[5].visible">
@@ -180,11 +180,11 @@
 
       <!-- 添加または改訂用户配置对话框 -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-         <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
+         <el-form :model="form" :rules="rules" ref="userRef" label-width="160px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="ユーザーのニックネーム" prop="nickName">
-                     <el-input v-model="form.nickName" placeholder="入ってくださいユーザーのニックネーム" maxlength="30" />
+                  <el-form-item label="ニックネーム" prop="nickName">
+                     <el-input v-model="form.nickName" placeholder="ニックネームを入力してください" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -203,24 +203,24 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="電話番号" prop="phonenumber">
-                     <el-input v-model="form.phonenumber" placeholder="入ってください電話番号" maxlength="11" />
+                     <el-input v-model="form.phonenumber" placeholder="電話番号を入力してください" maxlength="11" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="郵便" prop="email">
-                     <el-input v-model="form.email" placeholder="入ってください郵便" maxlength="50" />
+                     <el-input v-model="form.email" placeholder="郵便を入力してください" maxlength="50" />
                   </el-form-item>
                </el-col>
             </el-row>
             <el-row>
                <el-col :span="12">
                   <el-form-item v-if="form.userId == undefined" label="ユーザー名" prop="userName">
-                     <el-input v-model="form.userName" placeholder="入ってくださいユーザー名" maxlength="30" />
+                     <el-input v-model="form.userName" placeholder="ユーザー名を入力してください" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item v-if="form.userId == undefined" label="ユーザーのパスワード" prop="password">
-                     <el-input v-model="form.password" placeholder="入ってくださいユーザーのパスワード" type="password" maxlength="20" show-password />
+                  <el-form-item v-if="form.userId == undefined" label="パスワード" prop="password">
+                     <el-input v-model="form.password" placeholder="パスワードを入力してください" type="password" maxlength="20" show-password />
                   </el-form-item>
                </el-col>
             </el-row>
@@ -287,13 +287,13 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
-               <el-button @click="cancel">選ぶ 選ぶり除く</el-button>
+               <el-button type="primary" @click="submitForm">確認</el-button>
+               <el-button @click="cancel">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>
 
-      <!-- 用户輸入对话框 -->
+      <!-- user Input -->
       <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
          <el-upload
             ref="uploadRef"
@@ -314,15 +314,15 @@
                   <div class="el-upload__tip">
                      <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的ユーザーデータ
                   </div>
-                  <span>仅允许輸入xls、xlsxフォーマットファイル。</span>
+                  <span>ただxls、xlsxフォーマットファイルできます</span>
                   <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">テンプレートをダウンロードします</el-link>
                </div>
             </template>
          </el-upload>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitFileForm">確かに 確かに</el-button>
-               <el-button @click="upload.open = false">選ぶ 選ぶり除く</el-button>
+               <el-button type="primary" @click="submitFileForm">確認</el-button>
+               <el-button @click="upload.open = false">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>
@@ -371,7 +371,7 @@ const upload = reactive({
 const columns = ref([
   { key: 0, label: `ユーザーID`, visible: true },
   { key: 1, label: `ユーザー名`, visible: true },
-  { key: 2, label: `ユーザーのニックネーム`, visible: true },
+  { key: 2, label: `ニックネーム`, visible: true },
   { key: 3, label: `部門`, visible: true },
   { key: 4, label: `電話番号`, visible: true },
   { key: 5, label: `ステータス`, visible: true },
@@ -390,10 +390,10 @@ const data = reactive({
   },
   rules: {
     userName: [{ required: true, message: "ユーザー名 空であってはならない", trigger: "blur" }, { min: 2, max: 20, message: "長さは2から20の間でなければならない", trigger: "blur" }],
-    nickName: [{ required: true, message: "ユーザーのニックネーム 空であってはならない", trigger: "blur" }],
-    password: [{ required: true, message: "ユーザーのパスワード 空であってはならない", trigger: "blur" }, { min: 5, max: 20, message: "ユーザーのパスワード長さは5から20の間でなければならない", trigger: "blur" }],
-    email: [{ type: "email", message: "入ってください正確かに的郵便地址", trigger: ["blur", "change"] }],
-    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正確かに的電話番号入ってください", trigger: "blur" }]
+    nickName: [{ required: true, message: "ニックネーム 空であってはならない", trigger: "blur" }],
+    password: [{ required: true, message: "パスワード 空であってはならない", trigger: "blur" }, { min: 5, max: 20, message: "パスワード長さは5から20の間でなければならない", trigger: "blur" }],
+    email: [{ type: "email", message: "正確的なメールを入力してください", trigger: ["blur", "change"] }],
+    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "正確かに的電話番号を入力してください", trigger: "blur" }]
   }
 });
 
@@ -488,12 +488,12 @@ function handleAuthRole(row) {
 };
 /** 再読み込み密码ボタンアクション */
 function handleResetPwd(row) {
-  proxy.$prompt('入ってください"' + row.userName + '"新しいパスワード', "ヒント", {
+  proxy.$prompt('を入力してください"' + row.userName + '"新しいパスワード', "ヒント", {
     confirmButtonText: "確かに確かに",
     cancelButtonText: "選ぶ選ぶり除く",
     closeOnClickModal: false,
     inputPattern: /^.{5,20}$/,
-    inputErrorMessage: "ユーザーのパスワード长度必须介于 5 そして 20 間",
+    inputErrorMessage: "パスワード长度必须介于 5 そして 20 間",
   }).then(({ value }) => {
     resetUserPwd(row.userId, value).then(response => {
       proxy.$modal.msgSuccess("改訂成功，新しいパスワードはです：" + value);
@@ -562,7 +562,7 @@ function handleAdd() {
     postOptions.value = response.posts;
     roleOptions.value = response.roles;
     open.value = true;
-    title.value = "ユーザーを追加する";
+    title.value = "ユーザー情報設定";
     form.value.password = initPassword.value;
   });
 };

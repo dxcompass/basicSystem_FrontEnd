@@ -1,6 +1,6 @@
 <template>
    <div class="app-container">
-      <el-form :model="queryParams" ref="queryRef" v-show="showSearch" :inline="true" label-width="68px">
+      <el-form :model="queryParams" ref="queryRef" v-show="showSearch" :inline="true" label-width="160px">
          <el-form-item label="ロール名" prop="roleName">
             <el-input
                v-model="queryParams.roleName"
@@ -189,15 +189,15 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
-               <el-button @click="cancel">選ぶ 選ぶり除く</el-button>
+               <el-button type="primary" @click="submitForm">確認</el-button>
+               <el-button @click="cancel">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>
 
       <!-- 分配角色データ許可对话框 -->
       <el-dialog :title="title" v-model="openDataScope" width="500px" append-to-body>
-         <el-form :model="form" label-width="80px">
+         <el-form :model="form" label-width="160px">
             <el-form-item label="ロール名">
                <el-input v-model="form.roleName" :disabled="true" />
             </el-form-item>
@@ -233,8 +233,8 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitDataScope">確かに 確かに</el-button>
-               <el-button @click="cancelDataScope">選ぶ 選ぶり除く</el-button>
+               <el-button type="primary" @click="submitDataScope">確認</el-button>
+               <el-button @click="cancelDataScope">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>

@@ -1,6 +1,6 @@
 <template>
    <div class="app-container">
-      <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="160px">
          <el-form-item label="パラメーター名" prop="configName">
             <el-input
                v-model="queryParams.configName"
@@ -131,7 +131,7 @@
 
       <!-- [パラメーター構成]ダイアログボックスを追加または変更します -->
       <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-         <el-form ref="configRef" :model="form" :rules="rules" label-width="80px">
+         <el-form ref="configRef" :model="form" :rules="rules" label-width="160px">
             <el-form-item label="パラメーター名" prop="configName">
                <el-input v-model="form.configName" placeholder="パラメーター名を入力してください" />
             </el-form-item>
@@ -156,8 +156,8 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
-               <el-button @click="cancel">選ぶ 取り除く</el-button>
+               <el-button type="primary" @click="submitForm">確認</el-button>
+               <el-button @click="cancel">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>
@@ -255,7 +255,7 @@ function handleUpdate(row) {
   getConfig(configId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "パラメーターを改修します";
+    title.value = "パラメーター設定";
   });
 }
 /** [提案します]ボタン */

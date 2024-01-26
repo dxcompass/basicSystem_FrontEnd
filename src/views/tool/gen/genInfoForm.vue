@@ -138,7 +138,7 @@
                 <el-icon><question-filled /></el-icon>
               </el-tooltip>
             </template>
-            <el-select v-model="info.treeCode" placeholder="選んでください">
+            <el-select v-model="info.treeCode" placeholder="を選んでください">
               <el-option
                 v-for="(column, index) in info.columns"
                 :key="index"
@@ -156,7 +156,7 @@
                 <el-icon><question-filled /></el-icon>
               </el-tooltip>
             </template>
-            <el-select v-model="info.treeParentCode" placeholder="選んでください">
+            <el-select v-model="info.treeParentCode" placeholder="を選んでください">
               <el-option
                 v-for="(column, index) in info.columns"
                 :key="index"
@@ -174,7 +174,7 @@
                 <el-icon><question-filled /></el-icon>
               </el-tooltip>
             </template>
-            <el-select v-model="info.treeName" placeholder="選んでください">
+            <el-select v-model="info.treeName" placeholder="を選んでください">
               <el-option
                 v-for="(column, index) in info.columns"
                 :key="index"
@@ -198,7 +198,7 @@
                 <el-icon><question-filled /></el-icon>
               </el-tooltip>
             </template>
-            <el-select v-model="info.subTableName" placeholder="選んでください" @change="subSelectChange">
+            <el-select v-model="info.subTableName" placeholder="" @change="subSelectChangeを選んでください">
               <el-option
                 v-for="(table, index) in tables"
                 :key="index"
@@ -216,7 +216,7 @@
                 <el-icon><question-filled /></el-icon>
               </el-tooltip>
             </template>
-            <el-select v-model="info.subTableFkName" placeholder="選んでください">
+            <el-select v-model="info.subTableFkName" placeholder="を選んでください">
               <el-option
                 v-for="(column, index) in subColumns"
                 :key="index"
@@ -252,7 +252,7 @@ const props = defineProps({
 
 // フォーム検証
 const rules = ref({
-  tplCategory: [{ required: true, message: "選んでくださいテンプレートを生成します", trigger: "blur" }],
+  tplCategory: [{ required: true, message: "テンプレートを生成します", trigger: "blurを選んでください" }],
   packageName: [{ required: true, message: "请输入パッケージパスを生成します", trigger: "blur" }],
   moduleName: [{ required: true, message: "请输入モジュール名を生成します", trigger: "blur" }],
   businessName: [{ required: true, message: "请输入ビジネス名を生成します", trigger: "blur" }],

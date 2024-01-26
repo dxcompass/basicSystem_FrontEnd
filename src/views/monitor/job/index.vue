@@ -4,7 +4,7 @@
          <el-form-item label="ミッション名" prop="jobName">
             <el-input
                v-model="queryParams.jobName"
-               placeholder="入ってくださいミッション名"
+               placeholder="ミッション名を入力してください"
                clearable
                style="width: 200px"
                @keyup.enter="handleQuery"
@@ -96,8 +96,8 @@
                <dict-tag :options="sys_job_group" :value="scope.row.jobGroup" />
             </template>
          </el-table-column>
-         <el-table-column label="ターゲット文字列を呼び出します" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
-         <el-table-column label="cron急行" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
+         <el-table-column label="ターゲット" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
+         <el-table-column label="cron" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
          <el-table-column label="ステータス" align="center">
             <template #default="scope">
                <el-switch
@@ -143,7 +143,7 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="ミッション名" prop="jobName">
-                     <el-input v-model="form.jobName" placeholder="入ってくださいミッション名" />
+                     <el-input v-model="form.jobName" placeholder="ミッション名を入力してください" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -175,12 +175,12 @@
                            </el-tooltip>
                         </span>
                      </template>
-                     <el-input v-model="form.invokeTarget" placeholder="入ってくださいターゲット文字列を呼び出します" />
+                     <el-input v-model="form.invokeTarget" placeholder="ターゲット文字列を呼び出しますを入力してください" />
                   </el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="cronパフォーマンス" prop="cronExpression">
-                     <el-input v-model="form.cronExpression" placeholder="入ってくださいcron急行">
+                     <el-input v-model="form.cronExpression" placeholder="cronを入力してください">
                         <template #append>
                            <el-button type="primary" @click="handleShowCron">
                               生成パフォーマンス
@@ -222,8 +222,8 @@
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">確かに 確かに</el-button>
-               <el-button @click="cancel">選ぶ 取り除く</el-button>
+               <el-button type="primary" @click="submitForm">確認</el-button>
+               <el-button @click="cancel">キャンセル</el-button>
             </div>
          </template>
       </el-dialog>

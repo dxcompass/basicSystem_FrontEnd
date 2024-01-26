@@ -29,7 +29,7 @@
          <el-table @row-click="clickRow" ref="refTable" :data="userList" @selection-change="handleSelectionChange" height="260px">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column label="ユーザー名" prop="userName" :show-overflow-tooltip="true" />
-            <el-table-column label="ユーザーのニックネーム" prop="nickName" :show-overflow-tooltip="true" />
+            <el-table-column label="ニックネーム" prop="nickName" :show-overflow-tooltip="true" />
             <el-table-column label="郵便" prop="email" :show-overflow-tooltip="true" />
             <el-table-column label="携帯電話" prop="phonenumber" :show-overflow-tooltip="true" />
             <el-table-column label="ステータス" align="center" prop="status">
@@ -53,8 +53,8 @@
       </el-row>
       <template #footer>
          <div class="dialog-footer">
-            <el-button type="primary" @click="handleSelectUser">確かに 確かに</el-button>
-            <el-button @click="visible = false">選ぶ 取り除く</el-button>
+            <el-button type="primary" @click="handleSelectUser">確認</el-button>
+            <el-button @click="visible = false">キャンセル</el-button>
          </div>
       </template>
    </el-dialog>

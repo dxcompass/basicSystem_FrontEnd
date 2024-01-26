@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <h4 class="form-header h4">基本情報</h4>
-      <el-form :model="form" label-width="80px">
+      <el-form :model="form" label-width="160px">
          <el-row>
             <el-col :span="8" :offset="2">
-               <el-form-item label="ユーザーのニックネーム" prop="nickName">
+               <el-form-item label="ニックネーム" prop="nickName">
                   <el-input v-model="form.nickName" disabled />
                </el-form-item>
             </el-col>

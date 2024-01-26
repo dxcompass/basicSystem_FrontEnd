@@ -84,8 +84,8 @@ const loginForm = ref({
 });
 
 const loginRules = {
-  username: [{ required: true, trigger: "blur", message: "您的アカウントを入力してください" }],
-  password: [{ required: true, trigger: "blur", message: "您的パスワードを入力してください" }],
+  username: [{ required: true, trigger: "blur", message: "アカウントを入力してください" }],
+  password: [{ required: true, trigger: "blur", message: "パスワードを入力してください" }],
   code: [{ required: true, trigger: "change", message: "検証コードを入力してください" }]
 };
 

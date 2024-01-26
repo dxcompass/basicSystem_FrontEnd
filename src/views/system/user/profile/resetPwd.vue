@@ -1,5 +1,5 @@
 <template>
-   <el-form ref="pwdRef" :model="user" :rules="rules" label-width="80px">
+   <el-form ref="pwdRef" :model="user" :rules="rules" label-width="180px">
       <el-form-item label="以前のパスワード" prop="oldPassword">
          <el-input v-model="user.oldPassword" placeholder="以前のパスワード" type="passwordを入力してください" show-password />
       </el-form-item>

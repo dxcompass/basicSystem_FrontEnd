@@ -8,17 +8,17 @@
       </el-col>
       <el-col :span="12">
         <el-form-item label="表の説明" prop="tableComment">
-          <el-input placeholder="入ってください" v-model="info.tableComment" />
+          <el-input placeholder="を入力してください" v-model="info.tableComment" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="スポーツ名" prop="className">
-          <el-input placeholder="入ってください" v-model="info.className" />
+          <el-input placeholder="を入力してください" v-model="info.className" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="著者" prop="functionAuthor">
-          <el-input placeholder="入ってください" v-model="info.functionAuthor" />
+          <el-input placeholder="を入力してください" v-model="info.functionAuthor" />
         </el-form-item>
       </el-col>
       <el-col :span="24">
@@ -40,9 +40,9 @@ defineProps({
 
 // フォーム検証
 const rules = ref({
-  tableName: [{ required: true, message: "入ってくださいテーブル名", trigger: "blur" }],
-  tableComment: [{ required: true, message: "入ってください表の説明", trigger: "blur" }],
-  className: [{ required: true, message: "入ってくださいスポーツ名", trigger: "blur" }],
-  functionAuthor: [{ required: true, message: "入ってください著者", trigger: "blur" }]
+  tableName: [{ required: true, message: "テーブル名を入力してください", trigger: "blur" }],
+  tableComment: [{ required: true, message: "表の説明を入力してください", trigger: "blur" }],
+  className: [{ required: true, message: "スポーツ名を入力してください", trigger: "blur" }],
+  functionAuthor: [{ required: true, message: "著者を入力してください", trigger: "blur" }]
 });
 </script>
